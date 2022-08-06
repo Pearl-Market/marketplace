@@ -12,26 +12,6 @@ const ZoraNFTCreatorProxy_ADDRESS_MAINNET = "0xF74B146ce44CC162b601deC3BE331784D
 
 const Create: NextPage = () => {
 
-  const [dropInputs, setDropInputs] = useState({
-    contractName: "Example Drop",
-    contractSymbol: "DROP",
-    contractAdmin: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
-    contractMaxSupply: "100",
-    secondaryRoyalties: "500",
-    fundsRecipient: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
-    salesConfig: {
-      priceEther: "0.001",
-      perWalletMintCap: "5",
-      publicSaleStart: "0", // makes it so edition will be live to start
-      publicSaleEnd: "50000000000", // makes it so edition will be live to start
-      presaleStart: "0",
-      presaleEnd: "0",
-      presaleMerkleRoot: "0x0000000000000000000000000000000000000000000000000000000000000000"
-    },
-    metadataURIBase: "uribase/",
-    metadtaContractURI: "contracturi/",
-  })
-
   const [editionInputs, setEditionInputs] = useState({
     contractName: "Example Edition",
     contractSymbol: "EDTN",
@@ -72,16 +52,6 @@ const Create: NextPage = () => {
     },
   })
 
-  const connectToRinkebyAndDrop = async () => {
-    await connectToRinkeby()
-    rinkebyDropWrite()
-  }
-
-  const connectToMainnetAndDrop = async () => {
-    await connectToMainnet()
-    mainnetDropWrite()
-  }
-
   // switch network and call create drop flow (for when wallet already connected but to incorrect network)
   const { data: rinkebyChainData, switchNetworkAsync: switchToRinkeby } = useSwitchNetwork({
     chainId: 4,
@@ -96,39 +66,6 @@ const Create: NextPage = () => {
       console.log("Success", mainnetChainData)
     }
   })
-
-  const switchToRinkebyAndDrop = async () => {
-    await switchToRinkeby()
-    rinkebyDropWrite()
-  }
-
-  const switchToMainnetAndDrop = async () => {
-    await switchToMainnet()
-    mainnetDropWrite()
-  }
-
-  // createDrop function used in button
-  const createDropRinkeby = () => {
-    if (!chain) {
-      connectToRinkebyAndDrop()
-      return
-    } else if (chain && chain.id !== 4) {
-      switchToRinkebyAndDrop()
-      return
-    }
-    rinkebyDropWrite()
-  }
-
-  const createDropMainnet = () => {
-    if (!chain) {
-      connectToMainnetAndDrop()
-      return
-    } else if (chain && chain.id !== 1) {
-      switchToMainnetAndDrop()
-      return
-    }
-    mainnetDropWrite()
-  }
 
 
   // connect to network and call create edition flow (for when no wallet previously connected)
@@ -185,58 +122,6 @@ const Create: NextPage = () => {
     }
     return utils.parseEther(price)
   }
-
-  // createDrop functions
-
-  const { data: rinkebyDropData, isError: rinkebyDropError, isLoading: rinkebyDropLoading, write: rinkebyDropWrite } = useContractWrite({
-    addressOrName: ZoraNFTCreatorProxy_ADDRESS_RINKEBY,
-    contractInterface: ZoraNFTCreatorProxy_ABI.abi,
-    functionName: 'createDrop',
-    args: [
-      dropInputs.contractName,
-      dropInputs.contractSymbol,
-      dropInputs.contractAdmin,
-      dropInputs.contractMaxSupply,
-      dropInputs.secondaryRoyalties,
-      dropInputs.fundsRecipient,
-      [
-        dealWithEther(dropInputs.salesConfig.priceEther),
-        dropInputs.salesConfig.perWalletMintCap,
-        dropInputs.salesConfig.publicSaleStart,
-        dropInputs.salesConfig.publicSaleEnd,
-        dropInputs.salesConfig.presaleStart,
-        dropInputs.salesConfig.presaleEnd,
-        dropInputs.salesConfig.presaleMerkleRoot
-      ],
-      dropInputs.metadataURIBase,
-      dropInputs.metadtaContractURI,
-    ]
-  })
-
-  const { data: mainnetDropData, isError: mainnetDropError, isLoading: mainnetDropLoading, write: mainnetDropWrite } = useContractWrite({
-    addressOrName: ZoraNFTCreatorProxy_ADDRESS_MAINNET,
-    contractInterface: ZoraNFTCreatorProxy_ABI.abi,
-    functionName: 'createDrop',
-    args: [
-      dropInputs.contractName,
-      dropInputs.contractSymbol,
-      dropInputs.contractAdmin,
-      dropInputs.contractMaxSupply,
-      dropInputs.secondaryRoyalties,
-      dropInputs.fundsRecipient,
-      [
-        dealWithEther(dropInputs.salesConfig.priceEther),
-        dropInputs.salesConfig.perWalletMintCap,
-        dropInputs.salesConfig.publicSaleStart,
-        dropInputs.salesConfig.publicSaleEnd,
-        dropInputs.salesConfig.presaleStart,
-        dropInputs.salesConfig.presaleEnd,
-        dropInputs.salesConfig.presaleMerkleRoot
-      ],
-      dropInputs.metadataURIBase,
-      dropInputs.metadtaContractURI,
-    ]
-  })
 
   // createEdition functions
 
