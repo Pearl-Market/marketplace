@@ -55,10 +55,6 @@ const Create: NextPage = () => {
 
   const { chain } = useNetwork()
 
-
-
-
-
   // connect to network and call create drop flow (for when no wallet previously connected)
   const { connectAsync: connectToRinkeby } = useConnect({
     connector: new InjectedConnector,
@@ -138,23 +134,23 @@ const Create: NextPage = () => {
   // connect to network and call create edition flow (for when no wallet previously connected)
   const connectToRinkebyAndEdition = async () => {
     await connectToRinkeby()
-    rinkebyDropWrite()
+    rinkebyEditionWrite()
   }
 
   const connectToMainnetAndEdition = async () => {
     await connectToMainnet()
-    mainnetDropWrite()
+    mainnetEditionWrite()
   }
 
   // switch network and call edition drop flow (for when wallet already connected but to incorrect network)
   const switchToRinkebyAndEdition = async () => {
     await switchToRinkeby()
-    rinkebyDropWrite()
+    rinkebyEditionWrite()
   }
 
   const switchToMainnetAndEdition = async () => {
     await switchToMainnet()
-    mainnetDropWrite()
+    mainnetEditionWrite()
   }
 
   // createEdition function used in button
