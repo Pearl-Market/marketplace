@@ -93,11 +93,11 @@ const Mint: NextPage = () => {
                     <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
                         <div className="flex flex-row w-full justify-center grid grid-cols-2">
                             <div className="text-center ">
-                                FONT NAME
+                                Which Font do you want to buy?
                             </div>
                             <input
                                 className="text-white text-center bg-slate-200"
-                                placeholder="Input Font Name or Address"
+                                placeholder="Input Font Address"
                                 name="contractAddress"
                                 type="text"
                                 onChange={handleChange}
@@ -117,7 +117,7 @@ const Mint: NextPage = () => {
                                 className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#40bedc] hover:bg-[#40bedc] hover:text-white"
                                 onClick={() => mintWrite()}
                             >
-                                Mint
+                                Buy
                             </button>
                         </div>
                         <PostMintDialog

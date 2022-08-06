@@ -120,15 +120,15 @@ const Api: NextPage = () => {
     salesVolume: any
   }
 
-  const [collectionForm, setCollectionForm] = useState("0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7")
+  const [collectionForm, setCollectionForm] = useState("0xCa21d4228cDCc68D4e23807E5e370C07577Dd152")
   const [collectionNFTs, setCollectionNFTs] = useState<ICollectionNFTs>({
-    "address": "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7",
+    "address": "0xca21d4228cdcc68d4e23807e5e370c07577dd152",
     "description": "",
     "name": "Zorbs",
     "symbol": "ZORB",
     "totalSupply": 56741,
     "networkInfo": {
-      "chain": "RINKEBY",
+      "chain": "MAINNET",
       "network": "ETHEREUM"
     },
     "floorPrice": 0.02,

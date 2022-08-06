@@ -4,7 +4,7 @@ import { CreateAsk } from "./Asks/CreateAsk";
 import AskWrite_disclosure from "./Asks/AskWrite_disclosure";
 
 const zdkStrategyMainnet = new Strategies.ZDKFetchStrategy(
-    Networks.RINKEBY
+    Networks.MAINNET
 )
 
 const NFTCard = ({ nfts }) => {

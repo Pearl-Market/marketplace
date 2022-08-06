@@ -216,7 +216,7 @@ const Create: NextPage = () => {
   return (
     <div className="mt-2 sm:0 min-h-screen h-screen">
       <Header />
-      <main className="text-white h-full flex sm:flex-col flex-row flex-wrap">
+      <main className="text-black h-full flex sm:flex-col flex-row flex-wrap">
 
 
         <div className=" sm:w-6/12 sm:h-full w-full h-6/12 flex flex-row flex-wrap content-start">
@@ -400,7 +400,7 @@ const Create: NextPage = () => {
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                PRICE PER FONT
+                Price for 1 Font License
               </div>
               <input
                 className="text-black text-center bg-slate-200"
@@ -624,11 +624,11 @@ const Create: NextPage = () => {
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                FONT DESCRIPTION
+                Font Desription
               </div>
               <input
                 className="text-black text-center bg-slate-200"
-                placeholder="Input Font Description"
+                placeholder="Using this font will give your whole body shivers "
                 name="inputContract"
                 type="text"
                 value={editionInputs.editionDescription}
@@ -682,7 +682,7 @@ const Create: NextPage = () => {
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                IMAGE LINK
+                Image Link
               </div>
               <input
                 className="text-black text-center bg-slate-200"
@@ -710,10 +710,10 @@ const Create: NextPage = () => {
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-blue-500 border-solid">
             <button
-              className="border-2 hover:bg-white hover:text-black border-solid border-blue-500 py-1 flex flex-row w-full justify-center"
+              className="border-2 hover:bg-black hover:text-white border-solid border-blue-500 py-1 flex flex-row w-full justify-center"
               onClick={() => createEditionRinkeby()}
             >
-              Create your Font Edition
+              Create your Font
             </button>
             {/* <button
               className="border-2 border-l-0 hover:bg-white hover:text-black border-solid border-blue-500 py-1  flex flex-row w-full justify-center"
