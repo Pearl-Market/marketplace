@@ -22,7 +22,7 @@ const Create: NextPage = () => {
     salesConfig: {
       priceEther: "0.001",
       perWalletMintCap: "5",
-      publicSaleStart: "0", // makes it so edition will be live to start 
+      publicSaleStart: "0", // makes it so edition will be live to start
       publicSaleEnd: "50000000000", // makes it so edition will be live to start
       presaleStart: "0",
       presaleEnd: "0",
@@ -51,7 +51,7 @@ const Create: NextPage = () => {
     editionDescription: "description",
     metadataAnimationURI: "animationURI/",
     metadataImageURI: "imageURI/",
-  })  
+  })
 
   const { chain } = useNetwork()
 
@@ -80,7 +80,7 @@ const Create: NextPage = () => {
     await connectToRinkeby()
     rinkebyDropWrite()
   }
-  
+
   const connectToMainnetAndDrop = async () => {
     await connectToMainnet()
     mainnetDropWrite()
@@ -109,11 +109,11 @@ const Create: NextPage = () => {
   const switchToMainnetAndDrop = async () => {
     await switchToMainnet()
     mainnetDropWrite()
-  }  
+  }
 
   // createDrop function used in button
   const createDropRinkeby = () => {
-    if (!chain ) {
+    if (!chain) {
       connectToRinkebyAndDrop()
       return
     } else if (chain && chain.id !== 4) {
@@ -124,7 +124,7 @@ const Create: NextPage = () => {
   }
 
   const createDropMainnet = () => {
-    if (!chain ) {
+    if (!chain) {
       connectToMainnetAndDrop()
       return
     } else if (chain && chain.id !== 1) {
@@ -157,9 +157,9 @@ const Create: NextPage = () => {
     mainnetDropWrite()
   }
 
-  // createEdition function used in button  
+  // createEdition function used in button
   const createEditionRinkeby = () => {
-    if (!chain ) {
+    if (!chain) {
       connectToRinkebyAndEdition()
       return
     } else if (chain && chain.id !== 4) {
@@ -170,7 +170,7 @@ const Create: NextPage = () => {
   }
 
   const createEditionMainnet = () => {
-    if (!chain ) {
+    if (!chain) {
       connectToMainnetAndEdition()
       return
     } else if (chain && chain.id !== 1) {
@@ -294,14 +294,15 @@ const Create: NextPage = () => {
       editionInputs.metadataAnimationURI,
       editionInputs.metadataImageURI
     ]
-  })  
+  })
 
   useEffect(() => {
-    if(!chain) {
+    if (!chain) {
       console.log("no wallet connected")
     } else {
       console.log("chain ID =", chain.id)
-    }},
+    }
+  },
     [chain]
   )
 
@@ -311,539 +312,7 @@ const Create: NextPage = () => {
       <Header />
       <main className="text-white h-full flex sm:flex-col flex-row flex-wrap">
 
-        <div className=" sm:w-6/12 sm:h-full w-full h-6/12 flex flex-row flex-wrap content-start">
-          <div className="mt-20 sm:mt-10 flex flex-row justify-center h-fit w-full border-2 border-solid border-red-500 ">
-            CREATE DROP
-          </div>
-          
-          
-          
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center ">
-                CONTRACT NAME
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="text"
-                value={dropInputs.contractName}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        contractName: e.target.value
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                CONTRACT SYMBOL
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="text"
-                value={dropInputs.contractSymbol}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        contractSymbol: e.target.value
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                CONTRACT ADMIN
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="text"
-                value={dropInputs.contractAdmin}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        contractAdmin: e.target.value
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                CONTRACT MAX SUPPLY
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="number"
-                value={dropInputs.contractMaxSupply}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        contractMaxSupply: e.target.value
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>          
-          
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                SECONDARY ROYALTIES
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="number"
-                value={dropInputs.secondaryRoyalties}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        secondaryRoyalties: e.target.value
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                FUNDS RECIPIENT
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="text"
-                value={dropInputs.fundsRecipient}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        fundsRecipient: e.target.value
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                PRICE PER MINT
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="number"
-                value={dropInputs.salesConfig.priceEther}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          priceEther: e.target.value
-                        }                        
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                MINT CAP PER WALLET
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="number"
-                value={dropInputs.salesConfig.perWalletMintCap}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          perWalletMintCap: e.target.value
-                        }                        
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                PUBLIC SALE START
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="number"
-                value={dropInputs.salesConfig.publicSaleStart}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          publicSaleStart: e.target.value
-                        }                        
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                PUBLIC SALE END
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="number"
-                value={dropInputs.salesConfig.publicSaleEnd}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          publicSaleEnd: e.target.value
-                        }                        
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                PRESALE START
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="number"
-                value={dropInputs.salesConfig.presaleStart}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          presaleStart: e.target.value
-                        }                        
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>                 
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                PRESALE END
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="number"
-                value={dropInputs.salesConfig.presaleEnd}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          presaleEnd: e.target.value
-                        }                        
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                PRESALE MERKLE ROOT
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="text"
-                value={dropInputs.salesConfig.presaleMerkleRoot}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          presaleMerkleRoot: e.target.value
-                        }                        
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>                                                                                                                     
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                URI BASE
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="text"
-                value={dropInputs.metadataURIBase}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        metadataURIBase: e.target.value
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
-              <div className="text-center">
-                CONTRACT URI
-              </div>
-              <input
-                className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
-                name="inputContract"
-                type="text"
-                value={dropInputs.metadtaContractURI}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setDropInputs(current => {
-                      return {
-                        ...current,
-                        metadtaContractURI: e.target.value
-                      }
-                    })
-                }}
-                required                    
-              >
-              </input>
-              <button>
-                HOVER FOR INFO
-              </button>
-            </div>            
-          </div>
-
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className=" grid grid-cols-3">
-              <div className=" text-center col-start-2 col-end-3">
-              {"symmetricality issues"}
-              </div>
-            </div>
-          </div>          
-          
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-red-500 border-solid">
-            <button
-              className="border-2 hover:bg-white hover:text-black border-solid border-red-500 py-1 flex flex-row w-full justify-center"
-              onClick={() => createDropRinkeby()}
-            >
-              DEPLOY TO RINKEBY
-            </button>
-            <button
-              className="border-2 border-l-0 hover:bg-white hover:text-black border-solid border-red-500 py-1  flex flex-row w-full justify-center"
-              onClick={() => createDropMainnet()}
-            >
-              DEPLOY TO MAINNET
-            </button>              
-          </div>                   
-
-          {/* <div className="text-sm text-white w-full">
-            {"Contract Name: " + dropInputs.contractName}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"Contract Symbol: " + dropInputs.contractSymbol}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"Contract Admin: " + dropInputs.contractAdmin}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"Contract MaxSupply: " + dropInputs.contractMaxSupply}
-          </div>          
-          <div className="text-sm text-white w-full">
-            {"Royalties: " + dropInputs.secondaryRoyalties}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"fundsRecipient: " + dropInputs.fundsRecipient}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"salesConfig Price Ether (in wei): " + dealWithEther(dropInputs.salesConfig.priceEther)}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"salesConfig wallet cap: " + dropInputs.salesConfig.perWalletMintCap}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"salesConfig pub sale start: " + dropInputs.salesConfig.publicSaleStart}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"salesConfig pub sale end: " + dropInputs.salesConfig.publicSaleEnd}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"salesConfig presale start: " + dropInputs.salesConfig.presaleStart}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"salesConfig presale end: " + dropInputs.salesConfig.presaleEnd}
-          </div>
-          <div className="text-sm text-white w-full">
-            {"salesConfig persale merkle root: " + dropInputs.salesConfig.presaleMerkleRoot}
-          </div>                              
-          <div className="text-sm text-white w-full">
-            {"uriBase " + dropInputs.metadataURIBase}
-          </div> 
-          <div className="text-sm text-white w-full">
-            {"contractURI " + dropInputs.metadtaContractURI}
-          </div>  */}
-
-        </div>
         <div className=" sm:w-6/12 sm:h-full w-full h-6/12 flex flex-row flex-wrap content-start">
           <div className="mt-20 sm:mt-10 flex flex-row justify-center h-fit w-full border-2 border-solid border-blue-500 ">
             CREATE EDITION
@@ -860,21 +329,21 @@ const Create: NextPage = () => {
                 type="text"
                 value={editionInputs.contractName}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        contractName: e.target.value
-                      }
-                    })
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      contractName: e.target.value
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -889,21 +358,21 @@ const Create: NextPage = () => {
                 type="text"
                 value={editionInputs.contractSymbol}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        contractSymbol: e.target.value
-                      }
-                    })
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      contractSymbol: e.target.value
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -918,22 +387,22 @@ const Create: NextPage = () => {
                 type="number"
                 value={editionInputs.contractMaxSupply}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        contractMaxSupply: e.target.value
-                      }
-                    })
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      contractMaxSupply: e.target.value
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
-          </div>                
+            </div>
+          </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
@@ -947,21 +416,21 @@ const Create: NextPage = () => {
                 type="number"
                 value={editionInputs.secondaryRoyalties}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        secondaryRoyalties: e.target.value
-                      }
-                    })
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      secondaryRoyalties: e.target.value
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -976,21 +445,21 @@ const Create: NextPage = () => {
                 type="text"
                 value={editionInputs.fundsRecipient}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        fundsRecipient: e.target.value
-                      }
-                    })
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      fundsRecipient: e.target.value
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -1005,22 +474,22 @@ const Create: NextPage = () => {
                 type="text"
                 value={editionInputs.contractAdmin}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        contractAdmin: e.target.value
-                      }
-                    })
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      contractAdmin: e.target.value
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
-          </div>          
+            </div>
+          </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
@@ -1034,24 +503,24 @@ const Create: NextPage = () => {
                 type="number"
                 value={editionInputs.salesConfig.priceEther}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          priceEther: e.target.value
-                        }                        
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      salesConfig: {
+                        ...current.salesConfig,
+                        priceEther: e.target.value
                       }
-                    })
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -1066,24 +535,24 @@ const Create: NextPage = () => {
                 type="number"
                 value={editionInputs.salesConfig.perWalletMintCap}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          perWalletMintCap: e.target.value
-                        }                        
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      salesConfig: {
+                        ...current.salesConfig,
+                        perWalletMintCap: e.target.value
                       }
-                    })
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -1098,24 +567,24 @@ const Create: NextPage = () => {
                 type="number"
                 value={editionInputs.salesConfig.publicSaleStart}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          publicSaleStart: e.target.value
-                        }                        
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      salesConfig: {
+                        ...current.salesConfig,
+                        publicSaleStart: e.target.value
                       }
-                    })
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -1130,24 +599,24 @@ const Create: NextPage = () => {
                 type="number"
                 value={editionInputs.salesConfig.publicSaleEnd}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          publicSaleEnd: e.target.value
-                        }                        
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      salesConfig: {
+                        ...current.salesConfig,
+                        publicSaleEnd: e.target.value
                       }
-                    })
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -1162,25 +631,25 @@ const Create: NextPage = () => {
                 type="number"
                 value={editionInputs.salesConfig.presaleStart}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          presaleStart: e.target.value
-                        }                        
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      salesConfig: {
+                        ...current.salesConfig,
+                        presaleStart: e.target.value
                       }
-                    })
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
-          </div>                 
+            </div>
+          </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
@@ -1194,24 +663,24 @@ const Create: NextPage = () => {
                 type="number"
                 value={editionInputs.salesConfig.presaleEnd}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          presaleEnd: e.target.value
-                        }                        
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      salesConfig: {
+                        ...current.salesConfig,
+                        presaleEnd: e.target.value
                       }
-                    })
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -1226,25 +695,25 @@ const Create: NextPage = () => {
                 type="text"
                 value={editionInputs.salesConfig.presaleMerkleRoot}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        salesConfig: {
-                          ...current.salesConfig,
-                          presaleMerkleRoot: e.target.value
-                        }                        
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      salesConfig: {
+                        ...current.salesConfig,
+                        presaleMerkleRoot: e.target.value
                       }
-                    })
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
-          </div>                                                                                                                     
+            </div>
+          </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
@@ -1258,21 +727,21 @@ const Create: NextPage = () => {
                 type="text"
                 value={editionInputs.editionDescription}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        editionDescription: e.target.value
-                      }
-                    })
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      editionDescription: e.target.value
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -1287,21 +756,21 @@ const Create: NextPage = () => {
                 type="text"
                 value={editionInputs.metadataAnimationURI}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        metadataAnimationURI: e.target.value
-                      }
-                    })
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      metadataAnimationURI: e.target.value
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
+            </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
@@ -1316,23 +785,23 @@ const Create: NextPage = () => {
                 type="text"
                 value={editionInputs.metadataImageURI}
                 onChange={(e) => {
-                    e.preventDefault();
-                    setEditionInputs(current => {
-                      return {
-                        ...current,
-                        metadataImageURI: e.target.value
-                      }
-                    })
+                  e.preventDefault();
+                  setEditionInputs(current => {
+                    return {
+                      ...current,
+                      metadataImageURI: e.target.value
+                    }
+                  })
                 }}
-                required                    
+                required
               >
               </input>
               <button>
                 HOVER FOR INFO
               </button>
-            </div>            
-          </div>          
-          
+            </div>
+          </div>
+
           <div className="flex flex-row justify-center w-full h-fit border-2 border-blue-500 border-solid">
             <button
               className="border-2 hover:bg-white hover:text-black border-solid border-blue-500 py-1 flex flex-row w-full justify-center"
@@ -1345,9 +814,9 @@ const Create: NextPage = () => {
               onClick={() => createEditionMainnet()}
             >
               DEPLOY TO MAINNET
-            </button>              
-          </div>                       
-                                                                                  
+            </button>
+          </div>
+
           {/* <div className="text-sm text-white w-full">
             {"Contract Name: " + editionInputs.contractName}
           </div>
@@ -1356,7 +825,7 @@ const Create: NextPage = () => {
           </div>
           <div className="text-sm  text-white w-full">
             {"Contract MaxSupply: " + editionInputs.contractMaxSupply}
-          </div>        
+          </div>
           <div className="text-sm  text-white w-full">
             {"Royalties: " + editionInputs.secondaryRoyalties}
           </div>
@@ -1365,7 +834,7 @@ const Create: NextPage = () => {
           </div>
           <div className="text-sm  text-white w-full">
             {"Contract Admin: " + editionInputs.contractAdmin}
-          </div>          
+          </div>
           <div className="text-sm  text-white w-full">
             {"salesConfig Price Ether (in wei): " + dealWithEther(editionInputs.salesConfig.priceEther)}
           </div>
@@ -1386,13 +855,13 @@ const Create: NextPage = () => {
           </div>
           <div className="text-sm text-white w-full">
             {"salesConfig persale merkle root: " + editionInputs.salesConfig.presaleMerkleRoot}
-          </div>                              
+          </div>
           <div className="text-sm text-white w-full">
             {"Edition Description " + editionInputs.editionDescription}
-          </div> 
+          </div>
           <div className="text-sm text-white w-full">
             {"Animation URI " + editionInputs.metadataAnimationURI}
-          </div> 
+          </div>
           <div className="text-sm text-white w-full">
             {"Image URI URI " + editionInputs.metadataImageURI}
           </div> */}

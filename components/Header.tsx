@@ -7,8 +7,8 @@ export const Header = () => {
   return (
     <div className="bg-black text-white flex flex-row justify-center">
       <div className="fixed top-0 right-0">
-        <ConnectButton 
-          accountStatus="address" 
+        <ConnectButton
+          accountStatus="address"
           showBalance={false}
         />
       </div>
@@ -17,7 +17,14 @@ export const Header = () => {
           href="/"
         >
           <a className="hover:text-[#f53bc3]">
-          HOME
+            HOME
+          </a>
+        </Link>
+        <Link
+          href="/create"
+        >
+          <a className="hover:text-[#f53bc3]">
+            CREATE
           </a>
         </Link>
         <Link
