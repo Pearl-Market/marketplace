@@ -13,24 +13,24 @@ const ZoraNFTCreatorProxy_ADDRESS_MAINNET = "0xF74B146ce44CC162b601deC3BE331784D
 const Create: NextPage = () => {
 
   const [editionInputs, setEditionInputs] = useState({
-    contractName: "Example Edition",
-    contractSymbol: "EDTN",
-    contractMaxSupply: "100",
-    secondaryRoyalties: "500",
+    contractName: "How is your font called?",
+    contractSymbol: "TESTPEARL",
+    contractMaxSupply: "10000",
+    secondaryRoyalties: "100",
     fundsRecipient: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
     contractAdmin: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
     salesConfig: {
       priceEther: "0.001",
-      perWalletMintCap: "5",
+      perWalletMintCap: "1",
       publicSaleStart: "0", // makes it so edition will be live to start
       publicSaleEnd: "50000000000", // makes it so edition will be live to start
       presaleStart: "0",
       presaleEnd: "0",
       presaleMerkleRoot: "0x0000000000000000000000000000000000000000000000000000000000000000"
     },
-    editionDescription: "description",
-    metadataAnimationURI: "animationURI/",
-    metadataImageURI: "imageURI/",
+    editionDescription: "How would you describe your font?",
+    metadataAnimationURI: "",
+    metadataImageURI: "Where did you upload your an image of your font?",
   })
 
   const { chain } = useNetwork()
@@ -199,9 +199,9 @@ const Create: NextPage = () => {
             CREATE EDITION
           </div>
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center ">
-                CONTRACT NAME
+                FONT NAME
               </div>
               <input
                 className="text-black text-center bg-slate-200"
@@ -221,13 +221,13 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 CONTRACT SYMBOL
@@ -254,9 +254,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 CONTRACT MAX SUPPLY
@@ -283,9 +283,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 SECONDARY ROYALTIES
@@ -312,10 +312,10 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
                 FUNDS RECIPIENT
               </div>
@@ -337,14 +337,14 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
                 CONTRACT ADMIN
               </div>
@@ -366,14 +366,14 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
                 PRICE PER MINT
               </div>
@@ -398,13 +398,13 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 MINT CAP PER WALLET
@@ -434,9 +434,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 PUBLIC SALE START
@@ -466,9 +466,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 PUBLIC SALE END
@@ -498,9 +498,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 PRESALE START
@@ -530,8 +530,8 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
-
+          </div> */}
+          {/*
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
@@ -562,8 +562,8 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
-
+          </div> */}
+          {/*
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
@@ -594,12 +594,12 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                EDITION DESCRIPTION
+                FONT DESCRIPTION
               </div>
               <input
                 className="text-black text-center bg-slate-200"
@@ -619,13 +619,13 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 ANIMATION URI
@@ -652,12 +652,12 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                IMAGE URI
+                IMAGE LINK
               </div>
               <input
                 className="text-black text-center bg-slate-200"
@@ -677,9 +677,9 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
