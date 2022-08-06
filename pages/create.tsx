@@ -32,7 +32,7 @@ const Create: NextPage = () => {
   }
 
   const [editionInputs, setEditionInputs] = useState({
-    contractName: "How is your font called?",
+    contractName: "",
     contractSymbol: "TESTPEARL",
     contractMaxSupply: "10000",
     secondaryRoyalties: "100",
@@ -47,9 +47,9 @@ const Create: NextPage = () => {
       presaleEnd: "0",
       presaleMerkleRoot: "0x0000000000000000000000000000000000000000000000000000000000000000"
     },
-    editionDescription: "How would you describe your font?",
+    editionDescription: "",
     metadataAnimationURI: "",
-    metadataImageURI: "Where did you upload your an image of your font?",
+    metadataImageURI: "",
   })
 
   const { chain } = useNetwork()
@@ -230,7 +230,7 @@ const Create: NextPage = () => {
               </div>
               <input
                 className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
+                placeholder="Input Font Name"
                 name="inputContract"
                 type="text"
                 value={editionInputs.contractName}
@@ -339,7 +339,7 @@ const Create: NextPage = () => {
             </div>
           </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
                 FUNDS RECIPIENT
@@ -362,13 +362,13 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              {/* <button>
+              <button>
                 HOVER FOR INFO
-              </button> */}
+              </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
                 CONTRACT ADMIN
@@ -391,20 +391,20 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              {/* <button>
+              <button>
                 HOVER FOR INFO
-              </button> */}
+              </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                PRICE PER MINT
+                PRICE PER FONT
               </div>
               <input
                 className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
+                placeholder="Input Price"
                 name="inputContract"
                 type="number"
                 value={editionInputs.salesConfig.priceEther}
@@ -628,7 +628,7 @@ const Create: NextPage = () => {
               </div>
               <input
                 className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
+                placeholder="Input Font Description"
                 name="inputContract"
                 type="text"
                 value={editionInputs.editionDescription}
@@ -686,7 +686,7 @@ const Create: NextPage = () => {
               </div>
               <input
                 className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
+                placeholder="Input Image Link"
                 name="inputContract"
                 type="text"
                 value={editionInputs.metadataImageURI}
@@ -713,14 +713,14 @@ const Create: NextPage = () => {
               className="border-2 hover:bg-white hover:text-black border-solid border-blue-500 py-1 flex flex-row w-full justify-center"
               onClick={() => createEditionRinkeby()}
             >
-              DEPLOY TO RINKEBY
+              Create your Font Edition
             </button>
-            <button
+            {/* <button
               className="border-2 border-l-0 hover:bg-white hover:text-black border-solid border-blue-500 py-1  flex flex-row w-full justify-center"
               onClick={() => createEditionMainnet()}
             >
               DEPLOY TO MAINNET
-            </button>
+            </button> */}
           </div>
 
           {/* <div className="text-sm text-white w-full">
