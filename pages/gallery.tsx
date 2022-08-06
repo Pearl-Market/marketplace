@@ -16,15 +16,14 @@ import { Switch } from "@headlessui/react"
 
 // APIs
 const API_MAINNET = "https://api.zora.co/graphql"
-const API_RINKEBY = "https://indexer-dev-rinkeby.zora.co/v1/graphql"
 
 const client = createClient({
-  url: API_RINKEBY,
+  url: API_MAINNET,
 })
 
 console.log("client", client)
 
-const Gallery: NextPage = () => {
+const Gallery = () => {
 
   const [nftsMinted, setNFTsMinted] = useState();
   const [loading, setLoading] = useState(false);
@@ -33,8 +32,10 @@ const Gallery: NextPage = () => {
   const [enabled, setEnabled] = useState(false);
 
   // hook to get the current account of user
-  const { address, connector, isConnecting, isConnected, status } = useAccount();
-  const currentUserAddress = address ? address.toLowerCase() : ""
+  const { address, connector, isConnecting, isConnected, status} = useAccount(); 
+  const currentUserAddress = address ? address.toLowerCase() : "";
+
+  const NFTFontCollectionAddress = "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7";
 
   // read call to get current totalSupply
   const { data: totalSupplyData, isLoading, isSuccess, isFetching } = useContractRead({
@@ -44,7 +45,7 @@ const Gallery: NextPage = () => {
     args: [],
     watch: true,
     onError(error) {
-      console.log("error: ", error)
+      console.log("totalsSupply error: ", error)
     },
     onSuccess(data) {
       console.log("success! --> ", totalSupplyData)
@@ -58,42 +59,51 @@ const Gallery: NextPage = () => {
   const generateCalls = (numCalls) => {
     const callArray = [];
 
-    for (let i = 0; i < numCalls; i++) {
-      let call =
-        `
-      query ListCollections {
-        tokens(
-          where: {collectionAddresses: "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7"}
-          pagination: {limit: 100}
-        ) {
-          nodes {
-            marketsSummary {
-              marketType
-              tokenId
-              properties {
-                ... on V3Ask {
-                  sellerFundsRecipient
-                  findersFeeBps
-                  askPrice {
-                    nativePrice {
-                      decimal
-                      currency {
-                        name
-                      }
+      for (let i = 0; i < numCalls; i++ ) {
+      let call = 
+    ` 
+    query PreviewTokens {
+      tokens(
+        networks: [{network: ETHEREUM, chain: RINKEBY}], 
+        pagination: {limit: 10}, 
+        where: {
+          collectionAddresses: [
+            "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7",
+            "0xBF5560691df59dd8A5E2B3904D311AC070b9764a",
+          ]
+        }
+      ) 
+      {
+        nodes {
+          marketsSummary {
+            marketType
+            tokenId
+            properties {
+              ... on V3Ask {
+                sellerFundsRecipient
+                findersFeeBps
+                askPrice {
+                  nativePrice {
+                    decimal
+                    currency {
+                      name
                     }
                   }
-                  v3AskStatus
                 }
+                v3AskStatus
               }
             }
-            token {
-              tokenId
-              owner
-              collectionAddress
-            }
+          }
+          token {
+            collectionAddress
+            tokenId
+            name
+            tokenUrl
+            metadata
           }
         }
       }
+    }
     `
 
       callArray.push(call)
@@ -114,14 +124,15 @@ const Gallery: NextPage = () => {
       return [results]
     })
   }
+  
+  const parseCollection = (multipleArrays) => {    
 
-  const concatPromiseResultsRinkeby = (multipleArrays) => {
     const masterArray = []
-    for (let i = 0; i < multipleArrays[0].length; i++) {
-      for (let j = 0; j < multipleArrays[0][i].data.Token.length; j++) {
-        masterArray.push(multipleArrays[0][i].data.Token[j])
-      }
-    } return masterArray
+    console.log('test ',multipleArrays[0][0])
+    for (let j = 0; j < multipleArrays[0][0].data.tokens.nodes.length; j++ ) {
+      masterArray.push(multipleArrays[0][0].data.tokens.nodes[j])
+  }
+    return masterArray
   }
 
   const concatPromiseResultsMainnet = (multipleArrays) => {
@@ -130,7 +141,8 @@ const Gallery: NextPage = () => {
       for (let j = 0; j < multipleArrays[0][i].data.tokens.nodes.length; j++) {
         masterArray.push(multipleArrays[0][i].data.tokens.nodes[j])
       }
-    } return masterArray
+    } 
+    return masterArray
   }
 
   const ownerFilter = (rawData) => {
@@ -159,7 +171,7 @@ const Gallery: NextPage = () => {
       const promiseReturns = await runPromises(finalPromises);
       console.log("promiseReturns", promiseReturns)
 
-      const promiseResults = concatPromiseResultsMainnet(promiseReturns)
+      const promiseResults = parseCollection(promiseReturns)
 
       console.log("promiseResults: ", promiseResults);
 
@@ -169,9 +181,9 @@ const Gallery: NextPage = () => {
 
       console.log("rawData", rawData)
 
-    } catch (error) {
-      console.error(error.message)
-    } finally {
+    } catch(error) {
+      console.log('fetch error', error.message)
+    }  finally {
       setLoading(false)
     }
   }
