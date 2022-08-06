@@ -68,6 +68,14 @@ const Mint: NextPage = () => {
     // useWaitforTransaction
     const { data: mintWaitData, isError: mintWaitError, isLoading: mintWaitLoading } = useWaitForTransaction({
         hash: mintData?.hash,
+        onSuccess() {
+            console.log("mintData Success:", mintData),
+                console.log("waitData: ", mintWaitData)
+        },
+        onError() {
+            console.log("mintData Error:", mintData)
+        },
+
         // onSuccess(holderMintWaitData) {
         //     console.log("txn complete: ", mintWaitData)
         //     console.log("txn hash: ", mintWaitData.transactionHash)
@@ -121,10 +129,10 @@ const Mint: NextPage = () => {
                             </button>
                         </div>
                         <PostMintDialog
+                            colorScheme={heavenly}
                             publicTxnLoadingStatus={mintWaitLoading}
                             publicTxnSuccessStatus={mintStatus}
                             publicTxnHashLink={mintWaitData}
-                            colorScheme={heavenly}
                         />
                         {mintWaitLoading == true ? (
                             <div className="text-xl sm:text-2xl mt-10 flex flex-row flex-wrap justify-center ">
