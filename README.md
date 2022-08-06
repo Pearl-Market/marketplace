@@ -1,3 +1,18 @@
+## Getting Started - How to Fork
+> Clone the repo
+```bash
+git clone https://github.com/0xTranqui/zora-starter-kit.git
+```
+> Install dependencies
+```bash
+cd zora-starter-kit
+npm install
+```
+> Run locally
+```bash
+npm run dev
+```
+
 Forked from the [ZORA DEVELOPER STARTER KIT - v0.1](https://github.com/0xTranqui/zora-starter-kit)\
 [Video tutorial 1](https://www.loom.com/share/b29660f159ab498f858e46830a64ae52)\
 [Video tutorial 2](https://www.loom.com/share/78ceddea86894eed9442f635cc6433b5)\
