@@ -12,13 +12,32 @@ const ZoraNFTCreatorProxy_ADDRESS_MAINNET = "0xF74B146ce44CC162b601deC3BE331784D
 
 const Create: NextPage = () => {
 
+  const account = useAccount({
+    onConnect({ address, connector, isReconnected }) {
+      console.log('Connected', { address, connector, isReconnected });
+      setEditionInputs(current => {
+        return {
+          ...current,
+          fundsRecipient: account.address,
+          contractAdmin: account.address
+        }
+      })
+    },
+  })
+
+  // createEdition function used in button
+  const updateVariables = () => {
+    editionInputs.fundsRecipient = account.address;
+    editionInputs.contractAdmin = account.address;
+  }
+
   const [editionInputs, setEditionInputs] = useState({
     contractName: "How is your font called?",
     contractSymbol: "TESTPEARL",
     contractMaxSupply: "10000",
     secondaryRoyalties: "100",
-    fundsRecipient: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
-    contractAdmin: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
+    fundsRecipient: "0x0",
+    contractAdmin: "0x0",
     salesConfig: {
       priceEther: "0.001",
       perWalletMintCap: "1",
@@ -92,6 +111,7 @@ const Create: NextPage = () => {
 
   // createEdition function used in button
   const createEditionRinkeby = () => {
+    updateVariables()
     if (!chain) {
       connectToRinkebyAndEdition()
       return
@@ -103,6 +123,7 @@ const Create: NextPage = () => {
   }
 
   const createEditionMainnet = () => {
+    updateVariables()
     if (!chain) {
       connectToMainnetAndEdition()
       return
@@ -112,6 +133,10 @@ const Create: NextPage = () => {
     }
     mainnetEditionWrite()
   }
+
+
+
+
 
 
 
