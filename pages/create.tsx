@@ -12,52 +12,47 @@ const ZoraNFTCreatorProxy_ADDRESS_MAINNET = "0xF74B146ce44CC162b601deC3BE331784D
 
 const Create: NextPage = () => {
 
-  const [dropInputs, setDropInputs] = useState({
-    contractName: "Example Drop",
-    contractSymbol: "DROP",
-    contractAdmin: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
-    contractMaxSupply: "100",
-    secondaryRoyalties: "500",
-    fundsRecipient: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
-    salesConfig: {
-      priceEther: "0.001",
-      perWalletMintCap: "5",
-      publicSaleStart: "0", // makes it so edition will be live to start
-      publicSaleEnd: "50000000000", // makes it so edition will be live to start
-      presaleStart: "0",
-      presaleEnd: "0",
-      presaleMerkleRoot: "0x0000000000000000000000000000000000000000000000000000000000000000"
+  const account = useAccount({
+    onConnect({ address, connector, isReconnected }) {
+      console.log('Connected', { address, connector, isReconnected });
+      setEditionInputs(current => {
+        return {
+          ...current,
+          fundsRecipient: account.address,
+          contractAdmin: account.address
+        }
+      })
     },
-    metadataURIBase: "uribase/",
-    metadtaContractURI: "contracturi/",
   })
 
+  // createEdition function used in button
+  const updateVariables = () => {
+    editionInputs.fundsRecipient = account.address;
+    editionInputs.contractAdmin = account.address;
+  }
+
   const [editionInputs, setEditionInputs] = useState({
-    contractName: "Example Edition",
-    contractSymbol: "EDTN",
-    contractMaxSupply: "100",
-    secondaryRoyalties: "500",
-    fundsRecipient: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
-    contractAdmin: "0x153D2A196dc8f1F6b9Aa87241864B3e4d4FEc170",
+    contractName: "",
+    contractSymbol: "TESTPEARL",
+    contractMaxSupply: "10000",
+    secondaryRoyalties: "100",
+    fundsRecipient: "0x0",
+    contractAdmin: "0x0",
     salesConfig: {
-      priceEther: "0.001",
-      perWalletMintCap: "5",
+      priceEther: "0.003",
+      perWalletMintCap: "1",
       publicSaleStart: "0", // makes it so edition will be live to start
       publicSaleEnd: "50000000000", // makes it so edition will be live to start
       presaleStart: "0",
       presaleEnd: "0",
       presaleMerkleRoot: "0x0000000000000000000000000000000000000000000000000000000000000000"
     },
-    editionDescription: "description",
-    metadataAnimationURI: "animationURI/",
-    metadataImageURI: "imageURI/",
+    editionDescription: "",
+    metadataAnimationURI: "",
+    metadataImageURI: "",
   })
 
   const { chain } = useNetwork()
-
-
-
-
 
   // connect to network and call create drop flow (for when no wallet previously connected)
   const { connectAsync: connectToRinkeby } = useConnect({
@@ -76,16 +71,6 @@ const Create: NextPage = () => {
     },
   })
 
-  const connectToRinkebyAndDrop = async () => {
-    await connectToRinkeby()
-    rinkebyDropWrite()
-  }
-
-  const connectToMainnetAndDrop = async () => {
-    await connectToMainnet()
-    mainnetDropWrite()
-  }
-
   // switch network and call create drop flow (for when wallet already connected but to incorrect network)
   const { data: rinkebyChainData, switchNetworkAsync: switchToRinkeby } = useSwitchNetwork({
     chainId: 4,
@@ -101,64 +86,32 @@ const Create: NextPage = () => {
     }
   })
 
-  const switchToRinkebyAndDrop = async () => {
-    await switchToRinkeby()
-    rinkebyDropWrite()
-  }
-
-  const switchToMainnetAndDrop = async () => {
-    await switchToMainnet()
-    mainnetDropWrite()
-  }
-
-  // createDrop function used in button
-  const createDropRinkeby = () => {
-    if (!chain) {
-      connectToRinkebyAndDrop()
-      return
-    } else if (chain && chain.id !== 4) {
-      switchToRinkebyAndDrop()
-      return
-    }
-    rinkebyDropWrite()
-  }
-
-  const createDropMainnet = () => {
-    if (!chain) {
-      connectToMainnetAndDrop()
-      return
-    } else if (chain && chain.id !== 1) {
-      switchToMainnetAndDrop()
-      return
-    }
-    mainnetDropWrite()
-  }
-
 
   // connect to network and call create edition flow (for when no wallet previously connected)
   const connectToRinkebyAndEdition = async () => {
     await connectToRinkeby()
-    rinkebyDropWrite()
+    rinkebyEditionWrite()
   }
 
   const connectToMainnetAndEdition = async () => {
     await connectToMainnet()
-    mainnetDropWrite()
+    mainnetEditionWrite()
   }
 
   // switch network and call edition drop flow (for when wallet already connected but to incorrect network)
   const switchToRinkebyAndEdition = async () => {
     await switchToRinkeby()
-    rinkebyDropWrite()
+    rinkebyEditionWrite()
   }
 
   const switchToMainnetAndEdition = async () => {
     await switchToMainnet()
-    mainnetDropWrite()
+    mainnetEditionWrite()
   }
 
   // createEdition function used in button
   const createEditionRinkeby = () => {
+    updateVariables()
     if (!chain) {
       connectToRinkebyAndEdition()
       return
@@ -170,6 +123,7 @@ const Create: NextPage = () => {
   }
 
   const createEditionMainnet = () => {
+    updateVariables()
     if (!chain) {
       connectToMainnetAndEdition()
       return
@@ -183,64 +137,16 @@ const Create: NextPage = () => {
 
 
 
+
+
+
+
   const dealWithEther = (price) => {
     if (price === "") {
       return 0
     }
     return utils.parseEther(price)
   }
-
-  // createDrop functions
-
-  const { data: rinkebyDropData, isError: rinkebyDropError, isLoading: rinkebyDropLoading, write: rinkebyDropWrite } = useContractWrite({
-    addressOrName: ZoraNFTCreatorProxy_ADDRESS_RINKEBY,
-    contractInterface: ZoraNFTCreatorProxy_ABI.abi,
-    functionName: 'createDrop',
-    args: [
-      dropInputs.contractName,
-      dropInputs.contractSymbol,
-      dropInputs.contractAdmin,
-      dropInputs.contractMaxSupply,
-      dropInputs.secondaryRoyalties,
-      dropInputs.fundsRecipient,
-      [
-        dealWithEther(dropInputs.salesConfig.priceEther),
-        dropInputs.salesConfig.perWalletMintCap,
-        dropInputs.salesConfig.publicSaleStart,
-        dropInputs.salesConfig.publicSaleEnd,
-        dropInputs.salesConfig.presaleStart,
-        dropInputs.salesConfig.presaleEnd,
-        dropInputs.salesConfig.presaleMerkleRoot
-      ],
-      dropInputs.metadataURIBase,
-      dropInputs.metadtaContractURI,
-    ]
-  })
-
-  const { data: mainnetDropData, isError: mainnetDropError, isLoading: mainnetDropLoading, write: mainnetDropWrite } = useContractWrite({
-    addressOrName: ZoraNFTCreatorProxy_ADDRESS_MAINNET,
-    contractInterface: ZoraNFTCreatorProxy_ABI.abi,
-    functionName: 'createDrop',
-    args: [
-      dropInputs.contractName,
-      dropInputs.contractSymbol,
-      dropInputs.contractAdmin,
-      dropInputs.contractMaxSupply,
-      dropInputs.secondaryRoyalties,
-      dropInputs.fundsRecipient,
-      [
-        dealWithEther(dropInputs.salesConfig.priceEther),
-        dropInputs.salesConfig.perWalletMintCap,
-        dropInputs.salesConfig.publicSaleStart,
-        dropInputs.salesConfig.publicSaleEnd,
-        dropInputs.salesConfig.presaleStart,
-        dropInputs.salesConfig.presaleEnd,
-        dropInputs.salesConfig.presaleMerkleRoot
-      ],
-      dropInputs.metadataURIBase,
-      dropInputs.metadtaContractURI,
-    ]
-  })
 
   // createEdition functions
 
@@ -310,7 +216,7 @@ const Create: NextPage = () => {
   return (
     <div className="mt-2 sm:0 min-h-screen h-screen">
       <Header />
-      <main className="text-white h-full flex sm:flex-col flex-row flex-wrap">
+      <main className="text-black h-full flex sm:flex-col flex-row flex-wrap">
 
 
         <div className=" sm:w-6/12 sm:h-full w-full h-6/12 flex flex-row flex-wrap content-start">
@@ -318,13 +224,13 @@ const Create: NextPage = () => {
             CREATE EDITION
           </div>
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center ">
-                CONTRACT NAME
+                FONT NAME
               </div>
               <input
                 className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
+                placeholder="Input Font Name"
                 name="inputContract"
                 type="text"
                 value={editionInputs.contractName}
@@ -340,13 +246,13 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 CONTRACT SYMBOL
@@ -373,9 +279,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 CONTRACT MAX SUPPLY
@@ -402,9 +308,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 SECONDARY ROYALTIES
@@ -431,10 +337,10 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
                 FUNDS RECIPIENT
               </div>
@@ -460,10 +366,10 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
                 CONTRACT ADMIN
               </div>
@@ -489,16 +395,16 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                PRICE PER MINT
+                Price for 1 Font License
               </div>
               <input
                 className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
+                placeholder="Input Price"
                 name="inputContract"
                 type="number"
                 value={editionInputs.salesConfig.priceEther}
@@ -517,13 +423,13 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 MINT CAP PER WALLET
@@ -553,9 +459,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 PUBLIC SALE START
@@ -585,9 +491,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 PUBLIC SALE END
@@ -617,9 +523,9 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 PRESALE START
@@ -649,8 +555,8 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
-
+          </div> */}
+          {/*
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
@@ -681,8 +587,8 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
-
+          </div> */}
+          {/*
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
@@ -713,16 +619,16 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                EDITION DESCRIPTION
+                Font Desription
               </div>
               <input
                 className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
+                placeholder="Using this font will give your whole body shivers "
                 name="inputContract"
                 type="text"
                 value={editionInputs.editionDescription}
@@ -738,13 +644,13 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+          {/* <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-3">
               <div className="text-center">
                 ANIMATION URI
@@ -771,16 +677,16 @@ const Create: NextPage = () => {
                 HOVER FOR INFO
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
-            <div className="flex flex-row w-full justify-center grid grid-cols-3">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                IMAGE URI
+                Image Link
               </div>
               <input
                 className="text-black text-center bg-slate-200"
-                placeholder="Input NFT Address"
+                placeholder="Input Image Link"
                 name="inputContract"
                 type="text"
                 value={editionInputs.metadataImageURI}
@@ -796,25 +702,25 @@ const Create: NextPage = () => {
                 required
               >
               </input>
-              <button>
+              {/* <button>
                 HOVER FOR INFO
-              </button>
+              </button> */}
             </div>
           </div>
 
           <div className="flex flex-row justify-center w-full h-fit border-2 border-blue-500 border-solid">
             <button
-              className="border-2 hover:bg-white hover:text-black border-solid border-blue-500 py-1 flex flex-row w-full justify-center"
+              className="border-2 hover:bg-black hover:text-white border-solid border-blue-500 py-1 flex flex-row w-full justify-center"
               onClick={() => createEditionRinkeby()}
             >
-              DEPLOY TO RINKEBY
+              Create your Font
             </button>
-            <button
+            {/* <button
               className="border-2 border-l-0 hover:bg-white hover:text-black border-solid border-blue-500 py-1  flex flex-row w-full justify-center"
               onClick={() => createEditionMainnet()}
             >
               DEPLOY TO MAINNET
-            </button>
+            </button> */}
           </div>
 
           {/* <div className="text-sm text-white w-full">

@@ -23,14 +23,14 @@ const client = createClient({
 
 console.log("client", client)
 
-const Gallery: NextPage = () => {
+const Gallery = () => {
 
   const [nftsMinted, setNFTsMinted] = useState();
   const [loading, setLoading] = useState(false);
   const [rawData, setRawData] = useState([]);
   const [userData, setUserData] = useState([])
   const [enabled, setEnabled] = useState(false);
-  
+
   // hook to get the current account of user
   const { address, connector, isConnecting, isConnected, status} = useAccount(); 
   const currentUserAddress = address ? address.toLowerCase() : "";
@@ -38,26 +38,26 @@ const Gallery: NextPage = () => {
   const NFTFontCollectionAddress = "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7";
 
   // read call to get current totalSupply
-  const { data: totalSupplyData, isLoading, isSuccess, isFetching  } = useContractRead({
-    addressOrName: "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7",
+  const { data: totalSupplyData, isLoading, isSuccess, isFetching } = useContractRead({
+    addressOrName: "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7", // Sofja Collection
     contractInterface: editionsABI.abi,
     functionName: 'totalSupply',
     args: [],
     watch: true,
     onError(error) {
-        console.log("totalsSupply error: ", error)
+      console.log("totalsSupply error: ", error)
     },
     onSuccess(data) {
-        console.log("success! --> ", totalSupplyData)
-    }  
+      console.log("success! --> ", totalSupplyData)
+    }
   })
-  
-  // const totalSupply = totalSupplyData ? BigNumber.from(totalSupplyData).toString() : "loading"
-  // const totalSupplyNumber = Number(totalSupply)
-  const numOfCallsRequired = 1//Math.ceil(totalSupplyNumber / 100)
+
+  const totalSupply = totalSupplyData ? BigNumber.from(totalSupplyData).toString() : "loading"
+  const totalSupplyNumber = Number(totalSupply)
+  const numOfCallsRequired = Math.ceil(totalSupplyNumber / 100)
 
   const generateCalls = (numCalls) => {
-      const callArray = [];
+    const callArray = [];
 
       for (let i = 0; i < numCalls; i++ ) {
       let call = 
@@ -106,19 +106,19 @@ const Gallery: NextPage = () => {
     }
     `
 
-    callArray.push(call)
-    } 
+      callArray.push(call)
+    }
     return callArray
   }
-  
+
   const generateQueries = (array, length) => {
     const promises = []
     for (let i = 0; i < length; i++) {
-    promises.push(client.query(array[i]).toPromise())
+      promises.push(client.query(array[i]).toPromise())
     }
     return promises
   }
-  
+
   const runPromises = async (inputArray) => {
     return Promise.all(inputArray).then((results) => {
       return [results]
@@ -137,9 +137,9 @@ const Gallery: NextPage = () => {
 
   const concatPromiseResultsMainnet = (multipleArrays) => {
     const masterArray = []
-    for (let i = 0; i < multipleArrays[0].length; i++ ) {
-      for (let j = 0; j < multipleArrays[0][i].data.tokens.nodes.length; j++ ) {
-          masterArray.push(multipleArrays[0][i].data.tokens.nodes[j])
+    for (let i = 0; i < multipleArrays[0].length; i++) {
+      for (let j = 0; j < multipleArrays[0][i].data.tokens.nodes.length; j++) {
+        masterArray.push(multipleArrays[0][i].data.tokens.nodes[j])
       }
     } 
     return masterArray
@@ -147,12 +147,12 @@ const Gallery: NextPage = () => {
 
   const ownerFilter = (rawData) => {
     const filteredArray = []
-      const filteredNFTs = rawData.filter((nft) => {
-          if (nft.owner === currentUserAddress) {
-            filteredArray.push(nft)
-          }
-          return filteredArray
-      });
+    const filteredNFTs = rawData.filter((nft) => {
+      if (nft.owner === currentUserAddress) {
+        filteredArray.push(nft)
+      }
+      return filteredArray
+    });
     setUserData(filteredArray)
   }
 
@@ -190,14 +190,14 @@ const Gallery: NextPage = () => {
 
   useEffect(() => {
     fetchData();
-    },
+  },
     []
   )
 
   useEffect(() => {
-    if(!!rawData)
-    ownerFilter(rawData);
-    },
+    if (!!rawData)
+      ownerFilter(rawData);
+  },
     [currentUserAddress]
   )
 
@@ -205,50 +205,50 @@ const Gallery: NextPage = () => {
     <div>
       <Header />
       <div className=" min-h-screen bg-black flex flex-row flex-wrap justify-center">
-      <Switch.Group>
-        <div className=" mt-20 mb-5 w-full flex flex-row justify-center items-center">
+        <Switch.Group>
+          <div className=" mt-20 mb-5 w-full flex flex-row justify-center items-center">
             <Switch.Label className="mr-4 font-bold text-white">FULL COLLECTION</Switch.Label>
             <Switch
               checked={enabled}
               onChange={setEnabled}
               className={`${enabled ? `bg-[#4A524C]` : `bg-[#B8C5C9]`}
                   relative inline-flex h-[30px] w-[66px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
-              >
+            >
               <span className="sr-only">Use setting</span>
               <span
-                  aria-hidden="true"
-                  className={`${enabled ? 'translate-x-9' : 'translate-x-0'}
+                aria-hidden="true"
+                className={`${enabled ? 'translate-x-9' : 'translate-x-0'}
                     pointer-events-none inline-block h-[26px] w-[26px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
               />
             </Switch>
             <Switch.Label className="ml-4 font-bold text-white">MY COLLECTION</Switch.Label>
-        </div>
-      </Switch.Group>
-      {/* <div className="w-full flex flex-row justify-center text-[#202716] font-bold">
-        <a 
+          </div>
+        </Switch.Group>
+        {/* <div className="w-full flex flex-row justify-center text-[#202716] font-bold">
+        <a
             style={{ textDecoration: "none" }}
             href="https://zora.co/collections/0x7e6663E45Ae5689b313e6498D22B041f4283c88A"
         >
             <button className="text-center w-32 p-2 border-4 border-[#202716] bg-[#726e48] hover:bg-[#202716] hover:text-[#726e48] border-solid ">
               ZORA
-            </button>   
+            </button>
         </a>
       </div> */}
 
-      <div className="flex flex-row flex-wrap justify-center">
-        {
-            loading ? "loading . . . " : 
-            <>
-            { enabled === false ? ( 
-            <NFTCard  nfts={rawData} />
-            ) : (
-            <NFTCard  nfts={userData} />
-            )}
-            </>               
-        }
+        <div className="flex flex-row flex-wrap justify-center">
+          {
+            loading ? "loading . . . " :
+              <>
+                {enabled === false ? (
+                  <NFTCard nfts={rawData} />
+                ) : (
+                  <NFTCard nfts={userData} />
+                )}
+              </>
+          }
+        </div>
       </div>
     </div>
-  </div>
   )
 }
 

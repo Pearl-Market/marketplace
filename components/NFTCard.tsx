@@ -32,9 +32,7 @@ const NFTCard = ({ nfts }) => {
                                 <div>
                                     {"Listing Price: " + "N/A"}
                                 </div>
-                                <div>
-                                    {"Finders Fee: " + "N/A"}
-                                </div>                                  
+                                <AskWrite_disclosure nft={nft} />
                             </div>
                             ) : ( 
                             <div className="mb-5"> 
