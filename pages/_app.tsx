@@ -18,7 +18,7 @@ import { AppWrapper } from '../context/useAppContext';
 
 
 const { chains, provider } = configureChains(
-  [chain.mainnet],
+  [chain.mainnet, chain.rinkeby],
   [
     // alchemyProvider({ alchemyId: process.env.NEXT_PUBLIC_ALCHMEY_ID }),
     publicProvider()
@@ -40,17 +40,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
-        chains={chains} 
+        chains={chains}
         theme={darkTheme({
           borderRadius: "none",
           accentColor: "black",
           accentColorForeground: "white"
-      })}>
+        })}>
         <AppWrapper>
           <Component {...pageProps} />
         </AppWrapper>
       </RainbowKitProvider>
-    </WagmiConfig>        
+    </WagmiConfig>
   )
 }
 
