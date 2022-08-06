@@ -13,19 +13,19 @@ const networkInfo = {
 }
 
 const API_ENDPOINT = "https://api.zora.co/graphql";
-const zdkArgs = { 
-  endPoint: API_ENDPOINT, 
-  networks: [networkInfo], 
-} 
+const zdkArgs = {
+  endPoint: API_ENDPOINT,
+  networks: [networkInfo],
+}
 
-const zdk = new ZDK(zdkArgs) 
+const zdk = new ZDK(zdkArgs)
 
 
 const appendContractName = (arr, address) => {
-  
+
   // runs a check for ENS NFTs which return a name of null unless cleaned
   const ensAddress = "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85"
-  if ( address === ensAddress ) {
+  if (address === ensAddress) {
     const contractName = "ENS"
     return contractName
   } else {
@@ -36,33 +36,33 @@ const appendContractName = (arr, address) => {
 
 const nftCounter = (arr, key) => {
   let arr2 = [];
-    
-  arr.forEach((x)=>{
-        
+
+  arr.forEach((x) => {
+
     // Checking if there is any object in arr2
     // which contains the key value
-      if (arr2.some((val)=>{ return val[key] == x.token[key] })) {
-      
-        // If yes! then increase the count by 1
-        arr2.forEach((k)=>{
-          if(k[key] === x.token[key]){ 
-            k["count"]++
-          }
-      })
-          
-      } else {
+    if (arr2.some((val) => { return val[key] == x.token[key] })) {
 
-        // If not! Then create a new object initialize 
-        // it with the present iteration key's value and 
-        // set the count to 1
-        let a = {}
-        a[key] = x.token[key]
-        a["name"] = appendContractName(x, x.token.collectionAddress)
-        a["count"] = 1        
-        arr2.push(a);
-      }
+      // If yes! then increase the count by 1
+      arr2.forEach((k) => {
+        if (k[key] === x.token[key]) {
+          k["count"]++
+        }
+      })
+
+    } else {
+
+      // If not! Then create a new object initialize
+      // it with the present iteration key's value and
+      // set the count to 1
+      let a = {}
+      a[key] = x.token[key]
+      a["name"] = appendContractName(x, x.token.collectionAddress)
+      a["count"] = 1
+      arr2.push(a);
+    }
   })
-    
+
   const sortedArray = arr2.sort((a, b) => {
     return b.count - a.count
   })
@@ -73,14 +73,14 @@ const nftCounter = (arr, key) => {
 const Api: NextPage = () => {
 
   // =========== get current wallet address functionality
-  const { address: account } = useAccount(); 
+  const { address: account } = useAccount();
   const currentUserAddress = account ? account : "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" // vitalik.eth
   console.log("currentUseraddress: ", currentUserAddress)
 
 
   // ========== check user wallet functionality
   const [userNFTs, setUserNFTs] = useState({});
-  const currentUserNFTs = userNFTs ? userNFTs: "nothing";
+  const currentUserNFTs = userNFTs ? userNFTs : "nothing";
 
   const tokensResponse = async (args) => {
     const zdkResponseTokens = await (await zdk.tokens(args)).tokens.nodes
@@ -99,46 +99,47 @@ const Api: NextPage = () => {
   }
 
   useEffect(() => {
-    if(!!userNFTs) {
+    if (!!userNFTs) {
       tokensResponse(tokensArgs)
-    }},
+    }
+  },
     [currentUserAddress]
   )
 
-// ========== check specific collection functionality
-interface ICollectionNFTs {
-  address: any
-  description: any
-  name?: any
-  symbol?: any
-  totalSupply?: any
-  networkInfo: any
-  floorPrice?: any
-  ownerCount: any
-  nftCount: any
-  salesVolume: any
-}
+  // ========== check specific collection functionality
+  interface ICollectionNFTs {
+    address: any
+    description: any
+    name?: any
+    symbol?: any
+    totalSupply?: any
+    networkInfo: any
+    floorPrice?: any
+    ownerCount: any
+    nftCount: any
+    salesVolume: any
+  }
 
-const [collectionForm, setCollectionForm] = useState("0xCa21d4228cDCc68D4e23807E5e370C07577Dd152")
+  const [collectionForm, setCollectionForm] = useState("0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7")
   const [collectionNFTs, setCollectionNFTs] = useState<ICollectionNFTs>({
-    "address": "0xca21d4228cdcc68d4e23807e5e370c07577dd152",
+    "address": "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7",
     "description": "",
     "name": "Zorbs",
     "symbol": "ZORB",
     "totalSupply": 56741,
     "networkInfo": {
-        "chain": "MAINNET",
-        "network": "ETHEREUM"
+      "chain": "RINKEBY",
+      "network": "ETHEREUM"
     },
     "floorPrice": 0.02,
     "ownerCount": 33729,
     "nftCount": 56741,
     "salesVolume": {
-        "chainTokenPrice": 654.2453815022026,
-        "usdcPrice": 1661775.679886936,
-        "totalCount": 11934
+      "chainTokenPrice": 654.2453815022026,
+      "usdcPrice": 1661775.679886936,
+      "totalCount": 11934
     }
-})
+  })
 
   const currentCollectionNFTs = collectionNFTs ? collectionNFTs : ""
 
@@ -150,7 +151,7 @@ const [collectionForm, setCollectionForm] = useState("0xCa21d4228cDCc68D4e23807E
   }
 
   const aggStatArgs = {
-      collectionAddress: collectionForm // collectionForm
+    collectionAddress: collectionForm // collectionForm
   }
 
   const collectionAggregateResponse = async (collArgs, aggArgs) => {
@@ -159,24 +160,25 @@ const [collectionForm, setCollectionForm] = useState("0xCa21d4228cDCc68D4e23807E
     const mergedResponse = {
       ...zdkResponseAggStat,
       ...zdkResponseCollection
- 
+
     }
-    console.log("mergedResponse ", mergedResponse )
+    console.log("mergedResponse ", mergedResponse)
     setCollectionNFTs(mergedResponse)
   }
 
   useEffect(() => {
-    if(!!collectionNFTs) {
-      collectionAggregateResponse( collectionArgs, aggStatArgs)
-    }},
+    if (!!collectionNFTs) {
+      collectionAggregateResponse(collectionArgs, aggStatArgs)
+    }
+  },
     [collectionForm]
   )
 
   return (
     <div className='flex flex-col justify-center h-screen min-h-screen'>
       <Header />
-      <main className="w-full flex flex-row flex-wrap justify-center self-center items-center">        
-      <UserNFTs userAddress={currentUserAddress} nfts={currentUserNFTs} collectionInfo={currentCollectionNFTs} setCollectionCB={setCollectionForm} />
+      <main className="w-full flex flex-row flex-wrap justify-center self-center items-center">
+        <UserNFTs userAddress={currentUserAddress} nfts={currentUserNFTs} collectionInfo={currentCollectionNFTs} setCollectionCB={setCollectionForm} />
       </main>
     </div>
   )

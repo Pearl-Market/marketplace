@@ -39,7 +39,7 @@ const Create: NextPage = () => {
     fundsRecipient: "0x0",
     contractAdmin: "0x0",
     salesConfig: {
-      priceEther: "0.001",
+      priceEther: "0.003",
       perWalletMintCap: "1",
       publicSaleStart: "0", // makes it so edition will be live to start
       publicSaleEnd: "50000000000", // makes it so edition will be live to start
