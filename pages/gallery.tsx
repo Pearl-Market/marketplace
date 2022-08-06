@@ -204,7 +204,7 @@ const Gallery = () => {
   return (
     <div>
       <Header />
-      <div className=" min-h-screen bg-black flex flex-row flex-wrap justify-center">
+      <div className=" min-h-screen flex flex-row flex-wrap justify-center">
         <Switch.Group>
           <div className=" mt-20 mb-5 w-full flex flex-row justify-center items-center">
             <Switch.Label className="mr-4 font-bold text-white">FULL COLLECTION</Switch.Label>
