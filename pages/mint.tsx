@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { ethers, BigNumber } from 'ethers'
 import { useContractWrite, useContractRead, useWaitForTransaction } from 'wagmi'
 import { useAppContext } from "../context/useAppContext"
-import MintQuantity from '../components/mintQuantity'
+import MintQuantity from '../components/MintQuantity'
 import PostMintDialog from '../components/PostMintDialog'
 
 const heavenly = "#40bedc"
