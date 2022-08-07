@@ -35,7 +35,7 @@ export const Header = () => {
           href="/lit"
         >
           <a className="hover:text-[#f53bc3]">
-            Lit
+            Download Fonts
           </a>
         </Link>
         <Link
