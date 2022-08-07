@@ -9,7 +9,7 @@ export const Header = () => {
       <div className="w-full">
         <img src="/logo.png" className="logo" />
       </div>
-      <div className="flex flex-row items-center w-full	text-lg space-x-5">
+      <div className="flex flex-row items-center w-full	text-md space-x-5">
         <Link
           href="/"
         >
