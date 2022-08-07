@@ -35,6 +35,13 @@ export const Header = () => {
           </a>
         </Link>
         <Link
+          href="/lit"
+        >
+          <a className="hover:text-[#f53bc3]">
+            Lit
+          </a>
+        </Link>
+        <Link
           href="/gallery"
         >
           <a className="hover:text-[#f53bc3]">
