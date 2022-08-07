@@ -1,6 +1,6 @@
 import { NFTStorage, Blob } from 'nft.storage';
 import LitJsSdk from 'lit-js-sdk';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Header } from "../components/Header";
 import { NextPage } from "next";
 
@@ -112,7 +112,8 @@ const LitProtocol: NextPage = () => {
         }
     }
 
-    function decrypt() {
+    const decrypt = useCallback(
+      () => {
         Promise.all(encryptedFileArr.map((url, idx) => {
             return lit.decryptString(url, encryptedKeyArr[idx]);
         })).then((values) => {
@@ -120,7 +121,9 @@ const LitProtocol: NextPage = () => {
                 return v.decryptedFile;
             }));
         });
-    }
+      },
+      [encryptedFileArr, encryptedKeyArr, lit],
+    )
 
     useEffect(() => {
         if (encryptedFileArr.length !== 0) {
@@ -128,11 +131,14 @@ const LitProtocol: NextPage = () => {
         }
     }, [encryptedFileArr, decrypt]);
 
-    useEffect(() => {
-        if (decryptedFileArr.length !== 0) {
-            decryptedFileArr.map((el) => convertToPng(el))
-        }
-    }, [decryptedFileArr]);
+    console.log({encryptedFileArr})
+    console.log({decryptedFileArr})
+
+    // useEffect(() => {
+    //     if (decryptedFileArr.length !== 0) {
+    //         decryptedFileArr.map((el) => convertToPng(el))
+    //     }
+    // }, [decryptedFileArr]);
 
     function retrieveFile(e) {
         const data = e.target.files[0];
