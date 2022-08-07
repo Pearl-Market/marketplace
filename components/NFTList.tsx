@@ -4,7 +4,7 @@ import NFTCard from "./NFTCard"
 const NFTList = ({ nfts }) => {
 
   return (
-    <div className="flex flex-row flex-wrap gap-x-5">
+    <div className="flex flex-row flex-wrap gap-x-12">
       {
         nfts && nfts.length > 0
           ?

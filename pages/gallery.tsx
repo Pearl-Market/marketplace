@@ -78,8 +78,14 @@ const Gallery = () => {
         pagination: {limit: 10}, 
         where: {
           collectionAddresses: [
-            "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7",
-            "0xBF5560691df59dd8A5E2B3904D311AC070b9764a",
+            "0xC4CF74b756c763Fe426F132FEC6873C5a53d1DBA",
+            "0x9c95A40a62854d69c05f897e754088f57D9a4884",
+            "0xB8c79DA8b9D6Cfc99f2DB94918690E3C871cAd1f",
+            "0x1759ee7cfD8B1f80a80d47ADaB6789aa860709dD",
+            "0x79D9B0cb692d760ADd1366d61523A0B1ADfd127C",
+            "0xbD2596685Fc7EaE2B732C3D07F16E53067AA14Df",
+            "0xdd0dA8d59d40cBce5e4e37A02EF377A1dF9149Cc",
+            "0x34B1eb40E1C5B9b96BE34D72d75B2Da874b88771",
           ]
         }
       ) 
