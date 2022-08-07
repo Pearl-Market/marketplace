@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Header } from '../components/Header'
 
-import NFTCard from "../components/NFTCard"
 import Link from "next/link"
 import { useContractRead, useAccount } from "wagmi"
 import { NFTPreview, MediaConfiguration } from "@zoralabs/nft-components"
@@ -13,6 +12,7 @@ import { BigNumber } from "ethers"
 import { useState, useEffect } from 'react'
 import { createClient } from "urql"
 import { Switch } from "@headlessui/react"
+import NFTList from '../components/NFTList'
 
 // APIs
 const API_MAINNET = "https://api.zora.co/graphql"
@@ -240,9 +240,9 @@ const Gallery = () => {
             loading ? "loading . . . " :
               <>
                 {enabled === false ? (
-                  <NFTCard nfts={rawData} />
+                  <NFTList nfts={rawData} />
                 ) : (
-                  <NFTCard nfts={userData} />
+                  <NFTList nfts={userData} />
                 )}
               </>
           }
