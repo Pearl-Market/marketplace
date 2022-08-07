@@ -109,7 +109,7 @@ const Gallery = () => {
             {
               address: "0x34B1eb40E1C5B9b96BE34D72d75B2Da874b88771" ,
               tokenId: "1"
-            }
+            },
           ]
         }
       ) 

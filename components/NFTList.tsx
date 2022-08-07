@@ -13,9 +13,9 @@ const NFTList = ({ nfts }) => {
               <NFTCard 
                 key={nft.token.tokenId} 
                 tokenId={nft.token.tokenId} 
-                imageUrl={nft.token.metadata.image} 
+                imageUrl={nft.token?.metadata?.image} 
                 collectionAddress={nft.token.collectionAddress} 
-                name={nft.token.metadata.name} 
+                name={nft.token?.metadata?.name} 
                 price="0.003"
                 author="Typedesigner"
               />
