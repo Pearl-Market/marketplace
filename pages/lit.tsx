@@ -102,18 +102,29 @@ const LitProtocol: NextPage = () => {
     return (
         <div className="mt-20 sm:0 min-h-screen h-screen">
             <Header />
-            <main className="text-black h-full flex sm:flex-col flex-row flex-wrap">
-                <div className="main">
-                    <form onSubmit={handleSubmit}>
+            <main className="text-black mt-40 px-20 h-full flex sm:flex-col flex-row flex-wrap">
+                <form onSubmit={handleSubmit}>
+                    <div className="flex flex-col mb-5">
+                        <label className="mb-5">Upload an Encrypted File</label>
                         <input type="file" onChange={retrieveFile} />
-                        <button type="submit" className="button">Submit</button>
-
-                    </form>
-                </div>
+                    </div>
+                    <div className="flex flex-row">
+                        <button
+                            type="submit"
+                            className="flex flex-row justify-center rounded-lg font-semibold py-2.5 px-4 bg-slate-900 text-white hover:bg-slate-700"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                    <div className="flex flex-row">
+                        <h3 className='my-5'>Decrypted Extra Files</h3>
+                        {decryptedFileArr.length !== 0
+                            ? <img src={decryptedFileURL} alt="nfts" /> : null}
+                    </div>
+                </form>
 
                 <div className="display">
-                    {decryptedFileArr.length !== 0
-                        ? <img src={decryptedFileURL} alt="nfts" /> : <h3>Upload data</h3>}
+
 
                 </div>
 
