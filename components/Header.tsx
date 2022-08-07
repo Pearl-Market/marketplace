@@ -5,9 +5,9 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 export const Header = () => {
 
   return (
-    <div className="flex flex-row w-full justify-between items-center	 px-10 py-5 width-100 fixed top-0">
+    <div className="header-font flex flex-row w-full justify-between items-center	 px-10 py-5 width-100 fixed top-0">
       <div>
-        <img src="/logo.png" />
+        <img src="/logo.png" className="logo" />
       </div>
       <div className="px-4 flex flex-row items-center	text-lg space-x-5">
         <Link

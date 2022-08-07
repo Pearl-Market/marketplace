@@ -21,6 +21,9 @@ const Home: NextPage = () => {
               <p className="description mb-3">
                 Get royalties from the font sales and secondary design/templates sales
               </p>
+              <p className="description mb-3">
+                Keep ownership of your work
+              </p>
             </a>
           </Link>
           <Link href="/gallery">
