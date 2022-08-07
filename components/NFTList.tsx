@@ -4,17 +4,20 @@ import NFTCard from "./NFTCard"
 const NFTList = ({ nfts }) => {
 
   return (
-    <div className="flex flex-row flex-wrap">
-    {
+    <div className="flex flex-row flex-wrap gap-x-5">
+      {
         nfts && nfts.length > 0
           ?
           nfts.map((nft, index) => {
             return (
-              <Link key={nft.token.tokenId} href={`\nft\${nft.token.tokenId}`}>
-                <a>
-                  <NFTCard />
-                </a>
-              </Link>
+              <NFTCard 
+                key={nft.token.tokenId} 
+                tokenId={nft.token.tokenId} 
+                imageUrl={nft.token.metadata.image} 
+                name={nft.token.metadata.name} 
+                price="0.03"
+                author="Typedesigner"
+              />
             )
           }
           ) : (

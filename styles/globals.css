@@ -39,5 +39,11 @@ a {
 }
 .card .author {
   border-bottom: 1px solid #000000;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+}
+.card .details .name {
+  text-overflow: ellipsis;
+  width: 200px;
+  height: 30px;
+  overflow: hidden;
 }

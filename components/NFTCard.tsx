@@ -1,11 +1,16 @@
+import Link from "next/link"
 
 const NFTCard = ({ imageUrl, name, price, author, tokenId }) => {
 
     return (
         <div className="card">
-            <img src={imageUrl} alt="" className='specimen' />
+            <Link href={`\nft\${tokenId}`}>
+                <a>
+                    <img src={imageUrl} alt="" className='specimen' />
+                </a>
+            </Link>
             <div className="details flex flex-row justify-between my-3">
-                <span className="name font-500 text-2xl">{name}</span>
+                <span className="name font-500 text-xl">{name}</span>
                 <span className="price">{price} ETH</span>
             </div>
             <div className="author flex justify-end">

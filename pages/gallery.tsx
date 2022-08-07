@@ -32,7 +32,7 @@ const Gallery = () => {
   const [enabled, setEnabled] = useState(false);
 
   // hook to get the current account of user
-  const { address, connector, isConnecting, isConnected, status} = useAccount(); 
+  const { address, connector, isConnecting, isConnected, status } = useAccount();
   const currentUserAddress = address ? address.toLowerCase() : "";
 
   const NFTFontCollectionAddress = "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7";
@@ -59,9 +59,9 @@ const Gallery = () => {
   const generateCalls = (numCalls) => {
     const callArray = [];
 
-      for (let i = 0; i < numCalls; i++ ) {
-      let call = 
-    ` 
+    for (let i = 0; i < numCalls; i++) {
+      let call =
+        ` 
     query PreviewTokens {
       tokens(
         networks: [{network: ETHEREUM, chain: RINKEBY}], 
@@ -124,14 +124,14 @@ const Gallery = () => {
       return [results]
     })
   }
-  
-  const parseCollection = (multipleArrays) => {    
+
+  const parseCollection = (multipleArrays) => {
 
     const masterArray = []
-    console.log('test ',multipleArrays[0][0])
-    for (let j = 0; j < multipleArrays[0][0].data.tokens.nodes.length; j++ ) {
+    console.log('test ', multipleArrays[0][0])
+    for (let j = 0; j < multipleArrays[0][0].data.tokens.nodes.length; j++) {
       masterArray.push(multipleArrays[0][0].data.tokens.nodes[j])
-  }
+    }
     return masterArray
   }
 
@@ -141,7 +141,7 @@ const Gallery = () => {
       for (let j = 0; j < multipleArrays[0][i].data.tokens.nodes.length; j++) {
         masterArray.push(multipleArrays[0][i].data.tokens.nodes[j])
       }
-    } 
+    }
     return masterArray
   }
 
@@ -181,9 +181,9 @@ const Gallery = () => {
 
       console.log("rawData", rawData)
 
-    } catch(error) {
+    } catch (error) {
       console.log('fetch error', error.message)
-    }  finally {
+    } finally {
       setLoading(false)
     }
   }
@@ -204,8 +204,8 @@ const Gallery = () => {
   return (
     <div>
       <Header />
-      <div className=" min-h-screen flex flex-row flex-wrap justify-center">
-        <Switch.Group>
+      <div className="min-h-screen flex flex-col px-10 mt-40">
+        {/* <Switch.Group>
           <div className=" mt-20 mb-5 w-full flex flex-row justify-center items-center">
             <Switch.Label className="mr-4 font-bold text-white">FULL COLLECTION</Switch.Label>
             <Switch
@@ -223,28 +223,14 @@ const Gallery = () => {
             </Switch>
             <Switch.Label className="ml-4 font-bold text-white">MY COLLECTION</Switch.Label>
           </div>
-        </Switch.Group>
-        {/* <div className="w-full flex flex-row justify-center text-[#202716] font-bold">
-        <a
-            style={{ textDecoration: "none" }}
-            href="https://zora.co/collections/0x7e6663E45Ae5689b313e6498D22B041f4283c88A"
-        >
-            <button className="text-center w-32 p-2 border-4 border-[#202716] bg-[#726e48] hover:bg-[#202716] hover:text-[#726e48] border-solid ">
-              ZORA
-            </button>
-        </a>
-      </div> */}
+        </Switch.Group> */}
 
-        <div className="flex flex-row flex-wrap justify-center">
+
+        <div className="flex flex-row">
           {
-            loading ? "loading . . . " :
-              <>
-                {enabled === false ? (
-                  <NFTList nfts={rawData} />
-                ) : (
-                  <NFTList nfts={userData} />
-                )}
-              </>
+            loading
+              ? "loading . . . "
+              : <NFTList nfts={rawData} />
           }
         </div>
       </div>
