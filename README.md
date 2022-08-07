@@ -25,9 +25,9 @@ The Encyrpted files by the type designer can be decrypted if you own a font.
 
 
 ## Figma
-[PROTOTYPE](https://www.figma.com/proto/5rRkUj7PYcHmCgqLWNWmsF/PEARL-HACKATHON-PITCH?page-id=0%3A1&node-id=6%3A263&viewport=140%2C472%2C0.07&scaling=scale-down&starting-point-node-id=97%3A22&show-proto-sidebar=1)\  
+[PROTOTYPE](https://www.figma.com/proto/5rRkUj7PYcHmCgqLWNWmsF/PEARL-HACKATHON-PITCH?page-id=0%3A1&node-id=6%3A263&viewport=140%2C472%2C0.07&scaling=scale-down&starting-point-node-id=97%3A22&show-proto-sidebar=1)\
 
-### How to test on your local machine:
+## How to test on your local machine:
 
 > Clone the repo
 ```bash
