@@ -111,6 +111,7 @@ const LitProtocol: NextPage = () => {
             console.log(error.message);
         }
     }
+
     function decrypt() {
         Promise.all(encryptedFileArr.map((url, idx) => {
             return lit.decryptString(url, encryptedKeyArr[idx]);
@@ -125,7 +126,7 @@ const LitProtocol: NextPage = () => {
         if (encryptedFileArr.length !== 0) {
             decrypt();
         }
-    }, [encryptedFileArr]);
+    }, [encryptedFileArr, decrypt]);
 
     useEffect(() => {
         if (decryptedFileArr.length !== 0) {
