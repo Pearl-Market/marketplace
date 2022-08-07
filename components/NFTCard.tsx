@@ -3,7 +3,7 @@ import Link from "next/link"
 const NFTCard = ({ imageUrl, name, price, author, tokenId }) => {
 
     return (
-        <div className="card">
+        <div className="card shadow">
             <Link href={`\nft\${tokenId}`}>
                 <a>
                     <img src={imageUrl} alt="" className='specimen' />

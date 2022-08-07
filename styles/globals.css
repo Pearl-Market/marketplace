@@ -40,6 +40,9 @@ a {
   height: 200px;
 }
 
+.card {
+  margin-bottom: 50px;
+}
 .card .specimen{
   height: 350px;
   width: 300px;
