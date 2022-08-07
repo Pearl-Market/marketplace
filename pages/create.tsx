@@ -216,13 +216,12 @@ const Create: NextPage = () => {
   return (
     <div className="mt-2 sm:0 min-h-screen h-screen">
       <Header />
-      <main className="text-black h-full flex sm:flex-col flex-row flex-wrap">
+      <main className="center text-black h-full flex sm:flex-col flex-row flex-wrap">
+       
 
 
         <div className=" sm:w-6/12 sm:h-full w-full h-6/12 flex flex-row flex-wrap content-start">
-          <div className="mt-20 sm:mt-10 flex flex-row justify-center h-fit w-full border-2 border-solid border-blue-500 ">
-            CREATE EDITION
-          </div>
+        <div className="title-create">CREATE YOUR FONT EDITION</div>
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center ">
@@ -624,7 +623,7 @@ const Create: NextPage = () => {
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center">
-                Font Desription
+                Font Description
               </div>
               <input
                 className="text-black text-center bg-slate-200"
@@ -708,12 +707,12 @@ const Create: NextPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-row justify-center w-full h-fit border-2 border-blue-500 border-solid">
+          <div className="flex flex-row justify-center w-full h-fit border-black border-solid">
             <button
-              className="border-2 hover:bg-black hover:text-white border-solid border-blue-500 py-1 flex flex-row w-full justify-center"
+              className=" margin-button hover:bg-black hover:text-white border-solid border-1 border-black py-1 flex flex-row w-full justify-center"
               onClick={() => createEditionRinkeby()}
             >
-              Create your Font
+              CREATE YOUR FONT
             </button>
             {/* <button
               className="border-2 border-l-0 hover:bg-white hover:text-black border-solid border-blue-500 py-1  flex flex-row w-full justify-center"
