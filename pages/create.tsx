@@ -219,7 +219,14 @@ const Create: NextPage = () => {
   )
 
   async function retrieveFile(e) {
+    setEditionInputs(current => {
+      return {
+        ...current,
+        metadataImageURI: `Uploading Image...`
+      }
+    })
     const file = e.target.files[0];
+
     // const reader = new window.FileReader();
     // reader.readAsDataURL(data);
     // // const buf1 = Buffer.from('this is a tést');
@@ -238,22 +245,26 @@ const Create: NextPage = () => {
       // console.log("nft.storage url:", url)
 
       //Upload NFT to IPFS & Filecoin
-      const metadata = await NFTStorageClient.store({
-          name: 'Font Specimen',
-          description: 'Pearl Market NFT Font Specimen',
-          image: file
-      });
+      const cid = await NFTStorageClient.storeBlob(file);
 
-      const ipfsImageUrl = metadata.data.image.pathname.replace("//","/");
+      console.log({cid})
+      console.log('url',  `https://nftstorage.link/ipfs${cid}`)
+
       setEditionInputs(current => {
         return {
           ...current,
-          metadataImageURI: `https://nftstorage.link/ipfs${ipfsImageUrl}`
+          metadataImageURI: `https://nftstorage.link/ipfs/${cid}`
         }
       })
 
   } catch (error) {
       console.log(error.message);
+      setEditionInputs(current => {
+        return {
+          ...current,
+          metadataImageURI: ""
+        }
+      })
   }
 
     e.preventDefault();
