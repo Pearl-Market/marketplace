@@ -16,6 +16,7 @@ const heavenly = "#40bedc"
 
 const NFTCard = ({ imageUrl, name, price, author, tokenId, collectionAddress }) => {
 
+
     // ZORA NFT Edition default params
     const perMintPrice = 0.003
     const totalMintPrice = String(1 * perMintPrice)
@@ -54,6 +55,9 @@ const NFTCard = ({ imageUrl, name, price, author, tokenId, collectionAddress }) 
             console.log("mintData Error:", mintData)
         },
     })
+
+    if (!imageUrl) return null;
+
 
     return (
         <div className="card">
