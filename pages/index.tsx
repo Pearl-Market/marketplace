@@ -12,7 +12,7 @@ const Home: NextPage = () => {
 
       <main className="flex flex-col">
         <div className="app-features flex flex-row justify-end mt-20 mb-12">
-          <Link href="/mint">
+          <Link href="/create">
             <a className='flex flex-col users-box px-5'>
               <div className="icon"></div>
               <h4 className="title uppercase font-bold mb-3">Type designer</h4>
