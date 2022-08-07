@@ -248,7 +248,7 @@ const Create: NextPage = () => {
       const cid = await NFTStorageClient.storeBlob(file);
 
       console.log({cid})
-      console.log('url',  `https://nftstorage.link/ipfs${cid}`)
+      console.log('url',  `https://nftstorage.link/ipfs/${cid}`)
 
       setEditionInputs(current => {
         return {
