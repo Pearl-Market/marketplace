@@ -40,9 +40,9 @@ export default function PostMintDialog({ colorScheme, publicTxnLoadingStatus, pu
                         type="button"
                         onClick={openModal}
                         className={`border-[${colorScheme}] hover:bg-[${colorScheme}]
-                    mt-10 w-full sm:text-lg relative flex flex-row p-2 pl-3 bg-black border-2 border-solid  hover:text-black`}
+                    mt-10 w-full sm:text-lg relative flex flex-row p-2 pl-3 bg-white border-2 border-solid  hover:text-black`}
                     >
-                        YOUR MINT INFO
+                        Your Purchase Information
                     </button>
                     <Transition appear show={isOpen} as={Fragment}>
                         <Dialog as="div" className="relative z-[60]" onClose={closeModal}>
@@ -86,7 +86,7 @@ export default function PostMintDialog({ colorScheme, publicTxnLoadingStatus, pu
                                                     <div className="text-2xl mb-5">
                                                         <Link href="/gallery">
                                                             <a className={` hover:text-[${colorScheme}]`} style={{ textDecoration: "underline" }}>
-                                                                See Your Collection ➝
+                                                                Keep Browsing ➝
                                                             </a>
                                                         </Link>
                                                     </div>

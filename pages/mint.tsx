@@ -137,7 +137,7 @@ const Mint: NextPage = () => {
                                     src="/SVG-Loaders-master/svg-loaders/tail-spin.svg"
                                 />
                                 <div className="w-full text-center">
-                                    mint price: 0.001 Ξ TODO FETCH
+                                    Price: 0.003 Ξ
                                 </div>
                                 <div className="w-full text-center">
                                     {`${totalSupply}` + " minted so far . . ."}
@@ -146,7 +146,7 @@ const Mint: NextPage = () => {
                         ) : (
                             <div className="text-xl sm:text-2xl mt-10 flex flex-row flex-wrap justify-center ">
                                 <div className="w-full text-center">
-                                    mint price: 0.001 Ξ TOFO FETCH
+                                    Price: 0.003 Ξ
                                 </div>
                                 <div className="w-full text-center">
                                     {`${totalSupply}` + " minted so far . . ."}

@@ -10,7 +10,7 @@ const NFT_STORAGE_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaW
 
 const NFTStorageClient = new NFTStorage({ token: NFT_STORAGE_API_KEY })
 
-    
+
 const ZoraNFTCreatorProxy_ABI = require("../node_modules/@zoralabs/nft-drop-contracts/dist/artifacts/ZoraNFTCreatorV1.sol/ZoraNFTCreatorV1.json")
 
 const ZoraNFTCreatorProxy_ADDRESS_RINKEBY = "0x2d2acD205bd6d9D0B3E79990e093768375AD3a30"
@@ -238,7 +238,7 @@ const Create: NextPage = () => {
 
     //     setFile(base64);
     // };
-    try {       
+    try {
       // const cid = await NFTStorageClient.storeBlob(someData);
 
       // const url = `https://nftstorage.link/ipfs/${cid}`;
@@ -247,8 +247,8 @@ const Create: NextPage = () => {
       //Upload NFT to IPFS & Filecoin
       const cid = await NFTStorageClient.storeBlob(file);
 
-      console.log({cid})
-      console.log('url',  `https://nftstorage.link/ipfs/${cid}`)
+      console.log({ cid })
+      console.log('url', `https://nftstorage.link/ipfs/${cid}`)
 
       setEditionInputs(current => {
         return {
@@ -257,7 +257,7 @@ const Create: NextPage = () => {
         }
       })
 
-  } catch (error) {
+    } catch (error) {
       console.log(error.message);
       setEditionInputs(current => {
         return {
@@ -265,20 +265,20 @@ const Create: NextPage = () => {
           metadataImageURI: ""
         }
       })
-  }
+    }
 
     e.preventDefault();
-}
+  }
 
   return (
     <div className="mt-2 sm:0 min-h-screen h-screen">
       <Header />
       <main className="center text-black h-full flex sm:flex-col flex-row flex-wrap">
-       
+
 
 
         <div className=" sm:w-6/12 sm:h-full w-full h-6/12 flex flex-row flex-wrap content-start">
-        <div className="title-create">CREATE YOUR FONT EDITION</div>
+          <div className="title-create">CREATE YOUR FONT EDITION</div>
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center ">
@@ -291,7 +291,7 @@ const Create: NextPage = () => {
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center ">
-                FONT NAME
+                Font Name
               </div>
               <input
                 className="text-black text-center bg-slate-200"
