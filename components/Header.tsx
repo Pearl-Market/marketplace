@@ -5,14 +5,11 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 export const Header = () => {
 
   return (
-    <div className="bg-black text-black flex flex-row justify-center">
-      <div className="fixed top-0 right-0">
-        <ConnectButton
-          accountStatus="address"
-          showBalance={false}
-        />
+    <div className="flex flex-row w-full justify-between items-center	 px-10 py-5 width-100 fixed top-0">
+      <div>
+        <img src="/logo.png" />
       </div>
-      <div className="z-10 bg-white fixed top-12 sm:top-0 px-4 py-w border-2 border-solid border-white flex flex-row w-fit space-x-4">
+      <div className="px-4 flex flex-row items-center	text-lg space-x-5">
         <Link
           href="/"
         >
@@ -41,6 +38,13 @@ export const Header = () => {
             Gallery
           </a>
         </Link>
+      </div>
+
+      <div className="actions">
+        <ConnectButton
+          accountStatus="address"
+          showBalance={false}
+        />
       </div>
     </div>
   )
