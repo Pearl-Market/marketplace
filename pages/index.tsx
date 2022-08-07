@@ -20,6 +20,9 @@ const Home: NextPage = () => {
               <p className="description mb-3">
                 Get royalties from the font sales and secondary design/templates sales
               </p>
+              <p className="description mb-3">
+                Keep ownership of your work
+              </p>
             </a>
           </Link>
           <Link href="/gallery">
@@ -44,7 +47,7 @@ const Home: NextPage = () => {
           <h4 className="title uppercase font-bold mb-3">Explore typefaces</h4>
         </div>
         <div className="explore-designs flex flex-row my-10">
-          <h4 className="title uppercase font-bold mb-3">Explore typefaces</h4>
+          <h4 className="title uppercase font-bold mb-3">Explore Designs</h4>
         </div>
       </main>
     </div>

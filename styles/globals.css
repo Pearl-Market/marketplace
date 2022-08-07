@@ -30,17 +30,33 @@ a {
 }
 
 .home-logo {
-  width: 400px;
-  height: 100px;
+  width: 50%;
   object-fit: contain;
   margin-bottom: 20px;
 }
 
 .users-box {
-  width: 300px;
+  padding-top: 220px;
+  width: 452px;
   height: 200px;
 }
 .center{
   padding-top: 3em;;
   align-items: center;
+}
+
+.header-font{
+  text-transform: uppercase;
+}
+
+.logo{
+  width: 30%;
+}
+
+.title {
+  font-size: 1.6em;
+}
+
+.description{
+  font-size: 1.2em;
 }
