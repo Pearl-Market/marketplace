@@ -2,8 +2,8 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import '@rainbow-me/rainbowkit/styles.css';
 import {
-  darkTheme,
   getDefaultWallets,
+  lightTheme,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
 import {
@@ -26,7 +26,7 @@ const { chains, provider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
+  appName: 'Pearl Market',
   chains
 });
 
@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
         chains={chains}
-        theme={darkTheme({
+        theme={lightTheme({
           borderRadius: "none",
           accentColor: "white",
           accentColorForeground: "black"
