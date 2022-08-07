@@ -4,7 +4,13 @@ import { useState, useEffect } from "react"
 import { useContractWrite, useSwitchNetwork, useNetwork, useAccount, useConnect } from "wagmi"
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { utils } from "ethers"
+import { NFTStorage, Blob } from 'nft.storage';
 
+const NFT_STORAGE_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFmZGVjMjZjNDMxZjc4MjNhQzRFOTkyNDNhMjgxOTI5QTgxQUI0YmMiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY1OTgxODI5MTU0NCwibmFtZSI6IlBFQVJMIFNUT1JBR0UifQ.IKJa2ylWaqxPN9JjuG7sAb-EvOSsdTF24EHvP7hxUF8'
+
+const NFTStorageClient = new NFTStorage({ token: NFT_STORAGE_API_KEY })
+
+    
 const ZoraNFTCreatorProxy_ABI = require("../node_modules/@zoralabs/nft-drop-contracts/dist/artifacts/ZoraNFTCreatorV1.sol/ZoraNFTCreatorV1.json")
 
 const ZoraNFTCreatorProxy_ADDRESS_RINKEBY = "0x2d2acD205bd6d9D0B3E79990e093768375AD3a30"
@@ -212,6 +218,46 @@ const Create: NextPage = () => {
     [chain]
   )
 
+  async function retrieveFile(e) {
+    const file = e.target.files[0];
+    // const reader = new window.FileReader();
+    // reader.readAsDataURL(data);
+    // // const buf1 = Buffer.from('this is a tést');
+    // reader.onloadend = () => {
+    //     console.log('TYPE OF ----------------------------', typeof reader.result);
+    //     console.log('bytearray: ?', reader.result);
+    //     const base64 = getBase64StringFromDataURL(reader.result);
+    //     console.log(base64);
+
+    //     setFile(base64);
+    // };
+    try {       
+      // const cid = await NFTStorageClient.storeBlob(someData);
+
+      // const url = `https://nftstorage.link/ipfs/${cid}`;
+      // console.log("nft.storage url:", url)
+
+      //Upload NFT to IPFS & Filecoin
+      const metadata = await NFTStorageClient.store({
+          name: 'Font Specimen',
+          description: 'Pearl Market NFT Font Specimen',
+          image: file
+      });
+
+      const ipfsImageUrl = metadata.data.image.pathname.replace("//","/");
+      setEditionInputs(current => {
+        return {
+          ...current,
+          metadataImageURI: `https://nftstorage.link/ipfs${ipfsImageUrl}`
+        }
+      })
+
+  } catch (error) {
+      console.log(error.message);
+  }
+
+    e.preventDefault();
+}
 
   return (
     <div className="mt-2 sm:0 min-h-screen h-screen">
@@ -222,6 +268,15 @@ const Create: NextPage = () => {
 
         <div className=" sm:w-6/12 sm:h-full w-full h-6/12 flex flex-row flex-wrap content-start">
         <div className="title-create">CREATE YOUR FONT EDITION</div>
+          <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
+            <div className="flex flex-row w-full justify-center grid grid-cols-2">
+              <div className="text-center ">
+                Upload Specimen Image
+              </div>
+              <input type="file" onChange={retrieveFile} />
+            </div>
+          </div>
+
           <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
             <div className="flex flex-row w-full justify-center grid grid-cols-2">
               <div className="text-center ">

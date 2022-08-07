@@ -77,15 +77,39 @@ const Gallery = () => {
         networks: [{network: ETHEREUM, chain: RINKEBY}], 
         pagination: {limit: 10}, 
         where: {
-          collectionAddresses: [
-            "0xC4CF74b756c763Fe426F132FEC6873C5a53d1DBA",
-            "0x9c95A40a62854d69c05f897e754088f57D9a4884",
-            "0xB8c79DA8b9D6Cfc99f2DB94918690E3C871cAd1f",
-            "0x1759ee7cfD8B1f80a80d47ADaB6789aa860709dD",
-            "0x79D9B0cb692d760ADd1366d61523A0B1ADfd127C",
-            "0xbD2596685Fc7EaE2B732C3D07F16E53067AA14Df",
-            "0xdd0dA8d59d40cBce5e4e37A02EF377A1dF9149Cc",
-            "0x34B1eb40E1C5B9b96BE34D72d75B2Da874b88771",
+          tokens: [
+            {
+              address: "0xC4CF74b756c763Fe426F132FEC6873C5a53d1DBA",
+              tokenId: "1"}
+            ,
+            {
+              address: "0x9c95A40a62854d69c05f897e754088f57D9a4884",
+              tokenId: "1"
+            },
+            {
+              address: "0xB8c79DA8b9D6Cfc99f2DB94918690E3C871cAd1f",
+              tokenId: "1"
+            },
+            {
+              address: "0x1759ee7cfD8B1f80a80d47ADaB6789aa860709dD" ,
+              tokenId: "1"
+            },
+            {
+              address: "0x79D9B0cb692d760ADd1366d61523A0B1ADfd127C" ,
+              tokenId: "1"
+            },
+            {
+              address: "0xbD2596685Fc7EaE2B732C3D07F16E53067AA14Df" ,
+              tokenId: "1"
+            },
+            {
+              address: "0xdd0dA8d59d40cBce5e4e37A02EF377A1dF9149Cc" ,
+              tokenId: "1"
+            },
+            {
+              address: "0x34B1eb40E1C5B9b96BE34D72d75B2Da874b88771" ,
+              tokenId: "1"
+            }
           ]
         }
       ) 
