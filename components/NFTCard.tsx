@@ -74,7 +74,7 @@ const NFTCard = ({ imageUrl, name, price, author, tokenId, collectionAddress }) 
                 {author}
             </div>
 
-            {collectionAddress!=="" && (<button
+            {collectionAddress !== "" && (<button
                 className="flex flex-row justify-center w-full rounded-lg font-semibold py-2.5 px-4 bg-slate-900 text-white hover:bg-slate-700"
                 onClick={() => mintWrite()}
                 disabled={mintWaitLoading}

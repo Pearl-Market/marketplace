@@ -105,7 +105,7 @@ const LitProtocol: NextPage = () => {
             <main className="text-black mt-40 px-20 h-full flex sm:flex-col flex-row flex-wrap">
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col mb-5">
-                        <label className="mb-5">Upload an Encrypted File</label>
+                        <label className="mb-5">Upload a file that you want to entcrypt and lock behind the Font NFT</label>
                         <input type="file" onChange={retrieveFile} />
                     </div>
                     <div className="flex flex-row">
@@ -117,7 +117,7 @@ const LitProtocol: NextPage = () => {
                         </button>
                     </div>
                     <div className="flex flex-row">
-                        <h3 className='my-5'>Decrypted Extra Files</h3>
+                        <h3 className='my-5'>Placeholder: This will show the original file if encryption and decryption was successful</h3>
                         {decryptedFileArr.length !== 0
                             ? <img src={decryptedFileURL} alt="nfts" /> : null}
                     </div>
