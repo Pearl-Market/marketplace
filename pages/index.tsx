@@ -48,7 +48,10 @@ const Home: NextPage = () => {
           <h4 className="title uppercase font-bold mb-3">Explore typefaces</h4>
 
           <div className="cards-row flex flex-row flex-wrap gap-x-5">
-            <NFTCard imageUrl="/specimen.png" name="Font Name" price="0.2" author="Type designer" tokenId={1} />
+            <NFTCard collectionAddress='' imageUrl="/1.png" name="Trickster" price="0.2" author="Jean-Baptiste Morizot" tokenId={1} />
+            <NFTCard collectionAddress='' imageUrl="/2.png" name="Outward" price="0.2" author="Jeremy Landes" tokenId={1} />
+            <NFTCard collectionAddress='' imageUrl="/3.png" name="Millimetre" price="0.2" author="Jeremy Landes" tokenId={1} />
+            <NFTCard collectionAddress='' imageUrl="/4.png" name="Ouroboros" price="0.2" author="Jean-Baptiste Morizot" tokenId={1} />
           </div>
         </div>
 
@@ -56,7 +59,10 @@ const Home: NextPage = () => {
           <h4 className="title uppercase font-bold mb-3">Explore designs</h4>
 
           <div className="cards-row flex flex-row flex-wrap gap-x-5">
-            <NFTCard imageUrl="/specimen.png" name="Font Name" price="0.2" author="Type designer" tokenId={1} />
+            <NFTCard collectionAddress='' imageUrl="/5.png" name="Bentlyout" price="0.2" author="Darius X" tokenId={1} />
+            <NFTCard collectionAddress='' imageUrl="/6.png" name="Azora" price="0.2" author="Maxi Lopez" tokenId={1} />
+            <NFTCard collectionAddress='' imageUrl="/7.png" name="Mexes" price="0.2" author="Maxi Lopez" tokenId={1} />
+            <NFTCard collectionAddress='' imageUrl="/8.png" name="Livera" price="0.2" author="Francesa Muiz" tokenId={1} />
           </div>
         </div>
       </main>
