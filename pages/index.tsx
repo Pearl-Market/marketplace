@@ -9,8 +9,9 @@ const Home: NextPage = () => {
         <img src="/logo.png" className='home-logo' />
         <h6>CREATE, SELL, DISCOVER AND BUY TYPEFACES</h6>
       </div>
+
       <main className="flex flex-col">
-        <div className="app-features flex flex-row justify-end my-8">
+        <div className="app-features flex flex-row justify-end mt-20 mb-12">
           <Link href="/mint">
             <a className='flex flex-col users-box px-5'>
               <div className="icon"></div>
@@ -41,7 +42,6 @@ const Home: NextPage = () => {
               </p>
             </a>
           </Link>
-
         </div>
 
         <div className="explore-typefaces flex flex-col mb-10">
