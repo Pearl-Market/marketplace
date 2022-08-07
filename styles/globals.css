@@ -19,3 +19,15 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.home-logo {
+  width: 400px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.users-box {
+  width: 300px;
+  height: 200px;
+}
