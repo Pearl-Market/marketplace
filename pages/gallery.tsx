@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Header } from '../components/Header'
 
-import NFTCard from "../components/NFTCard"
 import Link from "next/link"
 import { useContractRead, useAccount } from "wagmi"
 import { NFTPreview, MediaConfiguration } from "@zoralabs/nft-components"
@@ -13,6 +12,7 @@ import { BigNumber } from "ethers"
 import { useState, useEffect } from 'react'
 import { createClient } from "urql"
 import { Switch } from "@headlessui/react"
+import NFTList from '../components/NFTList'
 
 // APIs
 const API_MAINNET = "https://api.zora.co/graphql"
@@ -32,36 +32,46 @@ const Gallery = () => {
   const [enabled, setEnabled] = useState(false);
 
   // hook to get the current account of user
-  const { address, connector, isConnecting, isConnected, status} = useAccount(); 
+  const { address, connector, isConnecting, isConnected, status } = useAccount();
   const currentUserAddress = address ? address.toLowerCase() : "";
 
-  const NFTFontCollectionAddress = "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7";
-
+  const NFTFontCollectionAddresses = [
+    "0xC4CF74b756c763Fe426F132FEC6873C5a53d1DBA",
+    "0x9c95A40a62854d69c05f897e754088f57D9a4884",
+    "0xB8c79DA8b9D6Cfc99f2DB94918690E3C871cAd1f",
+    "0x1759ee7cfD8B1f80a80d47ADaB6789aa860709dD",
+    "0x79D9B0cb692d760ADd1366d61523A0B1ADfd127C",
+    "0xbD2596685Fc7EaE2B732C3D07F16E53067AA14Df",
+    "0xdd0dA8d59d40cBce5e4e37A02EF377A1dF9149Cc",
+    "0x34B1eb40E1C5B9b96BE34D72d75B2Da874b88771",
+  ];
   // read call to get current totalSupply
-  const { data: totalSupplyData, isLoading, isSuccess, isFetching } = useContractRead({
-    addressOrName: "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7", // Sofja Collection
-    contractInterface: editionsABI.abi,
-    functionName: 'totalSupply',
-    args: [],
-    watch: true,
-    onError(error) {
-      console.log("totalsSupply error: ", error)
-    },
-    onSuccess(data) {
-      console.log("success! --> ", totalSupplyData)
-    }
-  })
+  // const { data: totalSupplyData, isLoading, isSuccess, isFetching } = useContractRead({
+  //   addressOrName: "0x6D873c95a65eBfe1579B7B0B3d0189c9fF8A35e7",
+  //   contractInterface: editionsABI.abi,
+  //   functionName: 'totalSupply',
+  //   args: [],
+  //   watch: true,
+  //   onError(error) {
+  //     console.log("totalsSupply error: ", error)
+  //   },
+  //   onSuccess(data) {
+  //     console.log("success! --> ", totalSupplyData)
+  //   }
+  // })
 
-  const totalSupply = totalSupplyData ? BigNumber.from(totalSupplyData).toString() : "loading"
-  const totalSupplyNumber = Number(totalSupply)
-  const numOfCallsRequired = Math.ceil(totalSupplyNumber / 100)
+  // const totalSupply = totalSupplyData ? BigNumber.from(totalSupplyData).toString() : "loading"
+  // const totalSupplyNumber = Number(totalSupply)
+  // const numOfCallsRequired = Math.ceil(totalSupplyNumber / 100)
+  const numOfCallsRequired = 1;
+  console.log({numOfCallsRequired})
 
   const generateCalls = (numCalls) => {
     const callArray = [];
 
-      for (let i = 0; i < numCalls; i++ ) {
-      let call = 
-    ` 
+    for (let i = 0; i < numCalls; i++) {
+      let call =
+        ` 
     query PreviewTokens {
       tokens(
         networks: [{network: ETHEREUM, chain: RINKEBY}], 
@@ -124,14 +134,14 @@ const Gallery = () => {
       return [results]
     })
   }
-  
-  const parseCollection = (multipleArrays) => {    
+
+  const parseCollection = (multipleArrays) => {
 
     const masterArray = []
-    console.log('test ',multipleArrays[0][0])
-    for (let j = 0; j < multipleArrays[0][0].data.tokens.nodes.length; j++ ) {
+    console.log('test ', multipleArrays[0][0])
+    for (let j = 0; j < multipleArrays[0][0].data.tokens.nodes.length; j++) {
       masterArray.push(multipleArrays[0][0].data.tokens.nodes[j])
-  }
+    }
     return masterArray
   }
 
@@ -141,7 +151,7 @@ const Gallery = () => {
       for (let j = 0; j < multipleArrays[0][i].data.tokens.nodes.length; j++) {
         masterArray.push(multipleArrays[0][i].data.tokens.nodes[j])
       }
-    } 
+    }
     return masterArray
   }
 
@@ -181,9 +191,9 @@ const Gallery = () => {
 
       console.log("rawData", rawData)
 
-    } catch(error) {
+    } catch (error) {
       console.log('fetch error', error.message)
-    }  finally {
+    } finally {
       setLoading(false)
     }
   }
@@ -204,8 +214,8 @@ const Gallery = () => {
   return (
     <div>
       <Header />
-      <div className=" min-h-screen flex flex-row flex-wrap justify-center">
-        <Switch.Group>
+      <div className="min-h-screen flex flex-col px-10 mt-40">
+        {/* <Switch.Group>
           <div className=" mt-20 mb-5 w-full flex flex-row justify-center items-center">
             <Switch.Label className="mr-4 font-bold text-white">FULL COLLECTION</Switch.Label>
             <Switch
@@ -223,28 +233,14 @@ const Gallery = () => {
             </Switch>
             <Switch.Label className="ml-4 font-bold text-white">MY COLLECTION</Switch.Label>
           </div>
-        </Switch.Group>
-        {/* <div className="w-full flex flex-row justify-center text-[#202716] font-bold">
-        <a
-            style={{ textDecoration: "none" }}
-            href="https://zora.co/collections/0x7e6663E45Ae5689b313e6498D22B041f4283c88A"
-        >
-            <button className="text-center w-32 p-2 border-4 border-[#202716] bg-[#726e48] hover:bg-[#202716] hover:text-[#726e48] border-solid ">
-              ZORA
-            </button>
-        </a>
-      </div> */}
+        </Switch.Group> */}
 
-        <div className="flex flex-row flex-wrap justify-center">
+
+        <div className="flex flex-row">
           {
-            loading ? "loading . . . " :
-              <>
-                {enabled === false ? (
-                  <NFTCard nfts={rawData} />
-                ) : (
-                  <NFTCard nfts={userData} />
-                )}
-              </>
+            loading
+              ? "loading . . . "
+              : <NFTList nfts={rawData} />
           }
         </div>
       </div>

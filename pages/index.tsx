@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import NFTCard from '../components/NFTCard'
 
 const Home: NextPage = () => {
   return (
@@ -8,8 +9,9 @@ const Home: NextPage = () => {
         <img src="/logo.png" className='home-logo' />
         <h6>CREATE, SELL, DISCOVER AND BUY TYPEFACES</h6>
       </div>
+
       <main className="flex flex-col">
-        <div className="app-features flex flex-row justify-end my-8">
+        <div className="app-features flex flex-row justify-end mt-20 mb-12">
           <Link href="/mint">
             <a className='flex flex-col users-box px-5'>
               <div className="icon"></div>
@@ -40,14 +42,22 @@ const Home: NextPage = () => {
               </p>
             </a>
           </Link>
-
         </div>
 
-        <div className="explore-typefaces flex flex-row mb-10">
+        <div className="explore-typefaces flex flex-col mb-10">
           <h4 className="title uppercase font-bold mb-3">Explore typefaces</h4>
+
+          <div className="cards-row flex flex-row flex-wrap gap-x-5">
+            <NFTCard imageUrl="/specimen.png" name="Font Name" price="0.2" author="Type designer" tokenId={1} />
+          </div>
         </div>
-        <div className="explore-designs flex flex-row my-10">
-          <h4 className="title uppercase font-bold mb-3">Explore Designs</h4>
+
+        <div className="explore-designs flex flex-col my-10">
+          <h4 className="title uppercase font-bold mb-3">Explore designs</h4>
+
+          <div className="cards-row flex flex-row flex-wrap gap-x-5">
+            <NFTCard imageUrl="/specimen.png" name="Font Name" price="0.2" author="Type designer" tokenId={1} />
+          </div>
         </div>
       </main>
     </div>

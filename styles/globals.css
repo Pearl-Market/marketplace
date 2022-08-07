@@ -36,9 +36,24 @@ a {
 }
 
 .users-box {
-  padding-top: 220px;
   width: 452px;
   height: 200px;
+}
+
+.card .specimen{
+  height: 350px;
+  width: 300px;
+  object-fit: cover;
+}
+.card .author {
+  border-bottom: 1px solid #000000;
+  padding-bottom: 5px;
+}
+.card .details .name {
+  text-overflow: ellipsis;
+  width: 200px;
+  height: 30px;
+  overflow: hidden;
 }
 .center{
   padding-top: 3em;;

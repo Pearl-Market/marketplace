@@ -1,29 +1,27 @@
-const NFTCard = ({ nfts }) => {
+import Link from "next/link"
+
+const NFTCard = ({ imageUrl, name, price, author, tokenId }) => {
 
     return (
-        <>
-            {
-            nfts && nfts.length > 0
-            ?
-            nfts.map((nft, index) => {
-                return (
-                    <div key={nft.token.tokenId} className="border-2 border-white m-[2px] w-10/12 sm:w-5/12 md:w-3/12  border-solid flex flex-row flex-wrap justify-center">
-                        
-                            <img src={nft.token.metadata.image} alt={nft.token.metadata.name} width={400} height={400} />
-                        <div>
-                            <p>{nft.token.metadata.description}</p>
-                        </div>
-                        
-                    </div>
-                )
-            }
-            ) : (
-                <div>
-                    {"NO FONT FOUND"}
-                </div>
-            )
-            }
-        </>
+        <div className="card">
+            <Link href={`\nft\${tokenId}`}>
+                <a>
+                    <img src={imageUrl} alt="" className='specimen' />
+                </a>
+            </Link>
+            <div className="details flex flex-row justify-between my-3">
+                <span className="name font-500 text-xl">{name}</span>
+                <span className="price">{price} ETH</span>
+            </div>
+            <div className="author flex justify-end">
+                {author}
+            </div>
+        </div>
+
+        // <img src={nft.token.metadata.image} alt={nft.token.metadata.name} width={400} height={400} />
+        // <div>
+        //     <p>{nft.token.metadata.description}</p>
+        // </div>
     )
 }
 
