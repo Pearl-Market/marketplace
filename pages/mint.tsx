@@ -94,9 +94,6 @@ const Mint: NextPage = () => {
             <Header />
             <main className="h-full flex flex-col flex-wrap items-center justify-center  ">
                 <div className="flex flex-col flex-wrap items-center">
-                    <div className={`text-center p-8 mt-5 sm:mt-0 bg-white border-[16px] border-double border-[${heavenly}] font-gothiccc text-5xl sm:text-7xl h-fit w-fit flex flex-row justify-center`} >
-                        {"[▒▒▒╜░╜╙▒▒▒▒▒▒▒]"}
-                    </div>
 
                     <div className="flex flex-row justify-center w-full h-fit border-2 border-white border-solid">
                         <div className="flex flex-row w-full justify-center grid grid-cols-2">
@@ -115,14 +112,12 @@ const Mint: NextPage = () => {
                             </input>
                         </div>
                     </div>
-                    <div className={`mt-10 mb-10 p-8  border-[16px] border-[${heavenly}] border-double bg-white min-w-fit sm:min-w-min  w-8/12 xl:w-6/12 h-fit  `}>
-                        <div className="text-center text-4xl h-fit w-full flex flex-row justify-center " >
-                            de Boedo al mundo
-                        </div>
+                    <div className={`mt-10 mb-10 p-8  bg-white min-w-fit sm:min-w-min  w-8/12 xl:w-6/12 h-fit  `}>
+
                         <div className="mt-8 w-full flex flex-row justify-center">
                             <MintQuantity colorScheme={heavenly} />
                             <button
-                                className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid border-[#40bedc] hover:bg-[#40bedc] hover:text-white"
+                                className="flex flex-row justify-self-start  text-2xl  p-3  w-fit h-fit border-2 border-solid hover:bg-[#40bedc] hover:text-white"
                                 onClick={() => mintWrite()}
                             >
                                 Buy
