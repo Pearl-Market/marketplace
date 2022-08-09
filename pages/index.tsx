@@ -12,10 +12,12 @@ const Home: NextPage = () => {
 
       <main className="flex flex-col">
         <div className="app-features flex flex-row justify-end mt-20 mb-12">
-          <Link href="/create">
+          
             <a className='flex flex-col users-box px-5'>
               <div className="icon"></div>
-              <h4 className="title uppercase font-bold mb-3">Type designer</h4>
+              <h4 className="title uppercase underline font-bold mb-3">
+                <Link href="/create">Type designer</Link>
+              </h4>
               <p className="description mb-3">
                 Sell your font licence
               </p>
@@ -26,11 +28,13 @@ const Home: NextPage = () => {
                 Keep ownership of your work
               </p>
             </a>
-          </Link>
-          <Link href="/gallery">
+          
+          
             <a className='flex flex-col users-box px-5'>
               <div className="icon"></div>
-              <h4 className="title uppercase font-bold mb-3">Graphic designer</h4>
+              <h4 className="title uppercase font-bold underline mb-3">
+                <Link href="/gallery">Graphic designer</Link>
+              </h4>
               <p className="description mb-3">
                 Find fonts
               </p>
@@ -41,7 +45,7 @@ const Home: NextPage = () => {
                 Get revenue from design sales
               </p>
             </a>
-          </Link>
+          
         </div>
 
         <div className="explore-typefaces flex flex-col mb-10">
