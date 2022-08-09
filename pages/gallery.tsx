@@ -79,9 +79,13 @@ const Gallery = () => {
         where: {
           tokens: [
             {
+              address: "0xBF5560691df59dd8A5E2B3904D311AC070b9764a",
+              tokenId: "1"
+            },
+            {
               address: "0xC4CF74b756c763Fe426F132FEC6873C5a53d1DBA",
-              tokenId: "1"}
-            ,
+              tokenId: "1"
+            },
             {
               address: "0x9c95A40a62854d69c05f897e754088f57D9a4884",
               tokenId: "1"

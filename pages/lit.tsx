@@ -13,6 +13,11 @@ const LitProtocol: NextPage = () => {
 
 
     const [file, setFile] = useState(null);
+    const [uploading, setUploading] = useState(false);
+    const [decrypting, setDecrypting] = useState(false);
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [url, setURL] = useState("");
     const [encryptedFileArr, setEncryptedFileArr] = useState([]);
     const [encryptedKeyArr, setEncryptedKeyArr] = useState([]);
     const [decryptedFileArr, setDecryptedFileArr] = useState([]);
@@ -20,6 +25,9 @@ const LitProtocol: NextPage = () => {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setUploading(true);
+        setError(false);
+        setSuccess(false);
 
         try {
 
@@ -33,40 +41,19 @@ const LitProtocol: NextPage = () => {
             const cid = await NFTStorageClient.storeBlob(someData);
 
             const url = `https://nftstorage.link/ipfs/${cid}`;
+            setURL(url);
+            setSuccess(true)
             console.log("nft.storage url:", url)
 
         } catch (error) {
-            console.log(error.message);
+            console.log('upload error:', error.message);
+            setError(true);
         }
+        setUploading(false);
     }
 
-    const decrypt = useCallback(
-        () => {
-            Promise.all(encryptedFileArr.map((url, idx) => {
-                return lit.decryptString(url, encryptedKeyArr[idx]);
-            })).then((values) => {
-                setDecryptedFileArr(values.map((v) => {
-                    return v.decryptedFile;
-                }));
-            });
-        },
-        [encryptedFileArr, encryptedKeyArr, lit],
-    )
+    
 
-    useEffect(() => {
-        if (encryptedFileArr.length !== 0) {
-            decrypt();
-        }
-    }, [encryptedFileArr, decrypt]);
-
-    console.log({ encryptedFileArr })
-    console.log({ decryptedFileArr })
-
-    useEffect(() => {
-        if (decryptedFileArr.length !== 0) {
-            decryptedFileArr.map((el) => convertToPng(el))
-        }
-    }, [decryptedFileArr]);
 
     function retrieveFile(e) {
         const data = e.target.files[0];
@@ -99,32 +86,110 @@ const LitProtocol: NextPage = () => {
     }
 
 
+    const decrypt = useCallback(
+        () => {
+            Promise.all(encryptedFileArr.map((url, idx) => {
+                return lit.decryptString(url, encryptedKeyArr[idx]);
+            })).then((values) => {
+                setDecryptedFileArr(values.map((v) => {
+                    return v.decryptedFile;
+                }));
+            });
+            setDecrypting(false)
+        },
+        [encryptedFileArr, encryptedKeyArr],
+    )
+
+
+    function handleDecrypt() {
+        if (encryptedFileArr.length !== 0) {
+            setDecrypting(true)
+            decrypt();
+        }
+    }
+
+
+    console.log({ encryptedFileArr })
+    console.log({ decryptedFileArr })
+
+    useEffect(() => {
+        if (decryptedFileArr.length !== 0) {
+            decryptedFileArr.map((el) => convertToPng(el))
+        }
+    }, [decryptedFileArr]);
+
+
     return (
         <div className="mt-20 sm:0 min-h-screen h-screen">
             <Header />
-            <main className="text-black mt-40 px-20 h-full flex sm:flex-col flex-row flex-wrap">
-                <form onSubmit={handleSubmit}>
-                    <div className="flex flex-col mb-5">
-                        <label className="mb-5">Upload a file that you want to entcrypt and lock behind the Font NFT</label>
-                        <input type="file" onChange={retrieveFile} />
-                    </div>
-                    <div className="flex flex-row">
-                        <button
-                            type="submit"
-                            className="flex flex-row justify-center rounded-lg font-semibold py-2.5 px-4 bg-slate-900 text-white hover:bg-slate-700"
-                        >
-                            Submit
-                        </button>
-                    </div>
-                    <div className="flex flex-row">
-                        <h3 className='my-5'>Placeholder: This will show the original file if encryption and decryption was successful</h3>
-                        {decryptedFileArr.length !== 0
+            <main className="text-black mt-40 px-10 h-full flex flex-row flex-wrap">
+                <div className="encypt shadow px-5 w-6/12">
+                    <h2 className="title">Sligoli Font Assets</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="flex flex-col mb-5">
+                            <label className="mb-5">Upload a file that you want to encrypt and lock behind the Sligoli Font NFT. Only NFT holders can decrypt uploads.</label>
+                            <input type="file" onChange={retrieveFile} />
+                        </div>
+                        <div className="flex flex-row">
+                            <button
+                                type="submit"
+                                className="flex flex-row justify-center rounded-lg font-semibold py-2.5 px-4 bg-slate-900 text-white hover:bg-slate-700"
+                                disabled={uploading}
+                            >
+                                {uploading && (<svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>)}
+
+                                <span>Upload Assets</span>
+                            </button>
+                        </div>
+                        <div className="flex flex-row mt-5">
+                            {success && (
+                                <p className='text-emerald-500'>
+                                    Upload and Encryption was Successful. <br /><br />
+                                    <a className='underline' href={url}>Encrypted uploaded file</a>
+                                </p>
+                            )}
+
+                            {error && (
+                                <p className='text-rose-600'>
+                                    An Error Occured during upload. <br /><br />
+                                    Please ensure you have bought the Sligoli NFT.
+                                </p>
+                            )}
+
+                        </div>
+
+                    </form>
+                </div>
+
+                <div className="decrypt shadow px-5 w-6/12">
+                    <div className="flex flex-col">
+                        <h2 className='title'>Decrypt Sligoli Font Assets</h2>
+                        <p className='mb-5'>File would be displayed below if decryption via Lit Protocol was successful</p>
+
+                        <div className="flex flex-row">
+                            <button
+                                className="flex flex-row justify-center rounded-lg font-semibold py-2.5 px-4 bg-emerald-900 text-white hover:bg-slate-700"
+                                disabled={decrypting}
+                                onClick={handleDecrypt}
+                            >
+                                {decrypting && (<svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>)}
+
+                                <span>Decrypt Assets</span>
+                            </button>
+                        </div>
+
+                        <div className="mt-5 px-2 flex flex-row">
+                            {decryptedFileArr.length !== 0
                             ? <img src={decryptedFileURL} alt="nfts" /> : null}
+                        </div>
+                        
                     </div>
-                </form>
-
-                <div className="display">
-
 
                 </div>
 

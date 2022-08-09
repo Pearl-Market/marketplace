@@ -61,11 +61,7 @@ const NFTCard = ({ imageUrl, name, price, author, tokenId, collectionAddress }) 
 
     return (
         <div className="card">
-            <Link href={`/nft/${tokenId}`}>
-                <a>
-                    <img src={imageUrl} alt="" className='specimen' />
-                </a>
-            </Link>
+            <img src={imageUrl} alt="" className='specimen' />
             <div className="details flex flex-row justify-between my-3">
                 <span className="name font-500 text-xl">{name}</span>
                 <span className="price">{price} ETH</span>
