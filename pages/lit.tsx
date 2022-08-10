@@ -29,22 +29,30 @@ const LitProtocol: NextPage = () => {
         setUploading(true);
         setError(false);
         setSuccess(false);
-        console.log({file})
-        return 
+        console.log("is file ready++++++++++++++++++++++++++++", file)
 
         try {
             const encrypted = await lit.encryptString(file);
 
+            console.log("file uploaded", encrypted)
+            console.log("encryptedFile", encrypted.encryptedFile)
+            console.log("encryptedSymmetricKey", encrypted.encryptedSymmetricKey)
+
             setEncryptedFileArr((prev) => [...prev, encrypted.encryptedFile]);
             setEncryptedKeyArr((prev) => [...prev, encrypted.encryptedSymmetricKey]);
 
-            const someData = new Blob(encryptedFileArr);
-            const cid = await NFTStorageClient.storeBlob(someData);
+            console.log("encryptedFileArr", encryptedFileArr)
 
-            const url = `https://nftstorage.link/ipfs/${cid}`;
-            setURL(url);
-            setSuccess(true)
-            console.log("nft.storage url:", url)
+            const someData = new Blob(encryptedFileArr);
+            console.log("someDATA", someData)
+            // const cid = await NFTStorageClient.storeBlob(someData);
+
+            // console.log("cid", cid)
+
+            // const url = `https://nftstorage.link/ipfs/${cid}`;
+            // setURL(url);
+            // setSuccess(true)
+            // console.log("nft.storage url:", url)
         } catch (error) {
             console.log('upload error:', error.message);
             setError(true);
@@ -65,6 +73,8 @@ const LitProtocol: NextPage = () => {
             console.log(base64);
 
             setFile(base64);
+            console.log('tYPE OF ----------------------------', typeof reader.result);
+            console.log('Content ----------------------------', base64);
         };
 
         e.preventDefault();
