@@ -14,6 +14,7 @@ const LitProtocol: NextPage = () => {
 
     const [file, setFile] = useState(null);
     const [uploading, setUploading] = useState(false);
+    const [processing, setProcessing] = useState(false);
     const [decrypting, setDecrypting] = useState(false);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -28,10 +29,10 @@ const LitProtocol: NextPage = () => {
         setUploading(true);
         setError(false);
         setSuccess(false);
+        console.log({file})
+        return 
 
         try {
-
-
             const encrypted = await lit.encryptString(file);
 
             setEncryptedFileArr((prev) => [...prev, encrypted.encryptedFile]);
@@ -44,7 +45,6 @@ const LitProtocol: NextPage = () => {
             setURL(url);
             setSuccess(true)
             console.log("nft.storage url:", url)
-
         } catch (error) {
             console.log('upload error:', error.message);
             setError(true);
@@ -52,10 +52,8 @@ const LitProtocol: NextPage = () => {
         setUploading(false);
     }
 
-    
-
-
     function retrieveFile(e) {
+        setProcessing(true)
         const data = e.target.files[0];
         const reader = new window.FileReader();
         reader.readAsDataURL(data);
@@ -71,6 +69,7 @@ const LitProtocol: NextPage = () => {
 
         e.preventDefault();
     }
+
     const getBase64StringFromDataURL = (dataURL) =>
         dataURL.replace('data:', '').replace(/^.+,/, '');
 
@@ -118,6 +117,11 @@ const LitProtocol: NextPage = () => {
         }
     }, [decryptedFileArr]);
 
+    useEffect(() => {
+        if (!file) return;
+        setProcessing(processing => !processing)
+    }, [file]);
+
 
     return (
         <div className="mt-20 sm:0 min-h-screen h-screen">
@@ -129,12 +133,13 @@ const LitProtocol: NextPage = () => {
                         <div className="flex flex-col mb-5">
                             <label className="mb-5">Upload a file that you want to encrypt and lock behind the Sligoli Font NFT. Only NFT holders can decrypt uploads.</label>
                             <input type="file" onChange={retrieveFile} />
+                            {processing && (<p className="text-blue-400 my-3">Processing uploaded file...</p>)}
                         </div>
                         <div className="flex flex-row">
                             <button
                                 type="submit"
                                 className="flex flex-row justify-center rounded-lg font-semibold py-2.5 px-4 bg-slate-900 text-white hover:bg-slate-700"
-                                disabled={uploading}
+                                disabled={uploading || processing}
                             >
                                 {uploading && (<svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -146,7 +151,7 @@ const LitProtocol: NextPage = () => {
                         </div>
                         <div className="flex flex-row mt-5">
                             {success && (
-                                <p className='text-emerald-500'>
+                                <p className='text--400-500'>
                                     Upload and Encryption was Successful. <br /><br />
                                     <a className='underline' href={url}>Encrypted uploaded file</a>
                                 </p>
@@ -186,9 +191,9 @@ const LitProtocol: NextPage = () => {
 
                         <div className="mt-5 px-2 flex flex-row">
                             {decryptedFileArr.length !== 0
-                            ? <img src={decryptedFileURL} alt="nfts" /> : null}
+                                ? <img src={decryptedFileURL} alt="nfts" /> : null}
                         </div>
-                        
+
                     </div>
 
                 </div>
